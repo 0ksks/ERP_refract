@@ -6,7 +6,7 @@
           ['User', '/user'],
           ['House', '/'],
         ]"
-        :headingString="headingString"
+        :headingString="$sentenceCase(entity)"
       />
     </el-header>
     <el-container class="inner-container">
@@ -27,8 +27,8 @@
     <el-footer height="80px"></el-footer>
   </el-container>
 </template>
+
 <script>
-import { useRouter } from "vue-router"
 import { ref } from "vue"
 import AsideLayout from "@/layout/AsideLayout.vue"
 import MainLayout from "@/layout/MainLayout.vue"
@@ -40,7 +40,6 @@ export default {
   },
   setup() {
     const entity = "material"
-    const router = useRouter()
     const filters = ref({
       materialID: true,
       materialName: false,
@@ -68,13 +67,9 @@ export default {
       standardPrice: false,
       userID: true
     })
-    const mainForm = {};
-    Object.keys(filters.value).forEach(key => {
-      if (key!==entity+"ID" && key!=="userID") {
-        mainForm[key] = "";
-      }
-    });
-    const headingString = "Material"
+    const tableData = ref([])
+
+    
     const titleFieldsMapping = [
       [
         "General",
@@ -112,27 +107,19 @@ export default {
         ["desc",           "desc",        "desc",      "desc"         ]
       ]
     ]
+    const mainForm = {};
+    Object.keys(filters.value).forEach(key => {
+      if (key!==entity+"ID" && key!=="userID") {
+        mainForm[key] = "";
+      }
+    });
 
-    const tableData = ref([])
-    const selectedMaterial = ref(null)
-    const searchQuery = ref("")
-    const dialogFormVisible = ref(false)
-    const gridData = ref([])
-
-    const navigateTo = (path) => {
-      router.push(path)
-    }
 
     return {
       entity,
       mainForm,
-      headingString,
       filters,
       tableData,
-      selectedMaterial,
-      searchQuery,
-      dialogFormVisible,
-      gridData,
       titleFieldsMapping,
     }
   },

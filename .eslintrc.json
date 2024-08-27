@@ -15,6 +15,7 @@
   "rules": {
     "quotes": ["error", "double"],
     "no-unused-vars": "warn",
+    "vue/no-mutating-props": "off",
     "indent": ["warn", 2],
     "vue/max-attributes-per-line": [
       "warn",

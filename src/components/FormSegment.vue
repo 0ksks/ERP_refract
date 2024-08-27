@@ -4,9 +4,9 @@
       {{ title }}
     </p>
     <el-divider class="divider"></el-divider>
-    <el-form :model="localForm" label-width="auto" label-position="left">
+    <el-form :model="form" label-width="auto" label-position="left">
       <el-row :gutter="20">
-        <el-col v-for="(_, key, index) in filtForm" :key="index" :span="8">
+        <el-col v-for="(key, index) in fields" :key="index" :span="8">
           <el-form-item>
             <template #label>
               {{ $sentenceCase(key) }}
@@ -30,9 +30,8 @@
               </VTooltip>
             </template>
             <el-input
-              v-model="filtForm[key]"
+              v-model="form[key]"
               class="text-value"
-              @input="updateForm(key, filtForm[key])"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -48,45 +47,6 @@ export default {
     title: { type: String, required: true },
     fields: { type: Array, required: true },
     desc: { type: Array, required: true },
-  },
-  data() {
-    return {
-      localForm: JSON.parse(JSON.stringify(this.form)), // 深拷贝form到localForm
-      filtForm: this.filterFormFields(this.form, this.fields), // 过滤后的字段
-    };
-  },
-  methods: {
-    filterFormFields(form, fields) {
-      const filteredForm = {};
-      fields.forEach((field) => {
-        if (Object.prototype.hasOwnProperty.call(form, field)) {
-          filteredForm[field] = form[field];
-        }
-      });
-      return filteredForm;
-    },
-    updateForm(key, value) {
-      this.localForm[key] = value;
-      this.$emit("update:form", { ...this.localForm }); // 向父组件发射事件，更新form
-    },
-  },
-  watch: {
-    form: {
-      handler(newVal) {
-        this.localForm = JSON.parse(JSON.stringify(newVal)); // 更新本地表单
-        this.filtForm = this.filterFormFields(newVal, this.fields);
-      },
-      deep: true,
-    },
-    filtForm: {
-      handler(newVal) {
-        Object.keys(newVal).forEach((key) => {
-          this.localForm[key] = newVal[key];
-          this.$emit("update:form", { ...this.localForm });
-        });
-      },
-      deep: true,
-    },
   },
 };
 </script>
