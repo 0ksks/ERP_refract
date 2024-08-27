@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <link rel="stylesheet" href="globalCss.css" />
+    <title>Personal Space</title>
+    <style>
+      /* 通用样式 */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Arial", sans-serif;
+        background-color: #f2f6fc;
+        text-align: center;
+      }
+
+      /* 头部样式 */
+      .header {
+        color: white;
+        padding: 1% 0;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .custom-icon-button {
+        position: absolute;
+        left: 20px;
+        font-size: 24px;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* 用户个人信息样式 */
+      .user-profile {
+        background: linear-gradient(to bottom, #8ebdf5, #d2e4fd);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+      }
+
+      .user-info {
+        margin: 15px 0;
+      }
+
+      .username {
+        font-size: 28px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .username input {
+        font-size: 28px;
+        margin: 10px 0;
+        border: none;
+        background: transparent;
+        text-align: center;
+      }
+
+      .role,
+      .user-id {
+        font-size: 18px;
+        margin: 5px 0;
+        color: #333;
+      }
+
+      /* 按钮样式 */
+      .buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .edit-button,
+      .signout-button {
+        font-size: 18px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .edit-button {
+        background-color: #4e91ff;
+        color: white;
+        border: none;
+      }
+
+      .signout-button {
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+      }
+
+      .edit-button:hover,
+      .signout-button:hover {
+        opacity: 0.8;
+      }
+
+      /* 欢迎消息样式 */
+      .welcome-message {
+        margin: 20px auto;
+        max-width: 600px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .welcome-message h2 {
+        font-size: 24px;
+        color: #4e91ff;
+        margin-bottom: 10px;
+      }
+
+      .welcome-message p {
+        font-size: 18px;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <button class="custom-icon-button" onclick="goToHomepage()">
+        <i class="el-icon-s-home"></i>
+      </button>
+      <!-- Home Icon -->
+      <h1>User</h1>
+    </div>
+
+    <div class="user-profile">
+      <img src="profile-placeholder.jpeg" alt="User Avatar" class="avatar" />
+      <div class="user-info">
+        <h2 class="username" id="username-display">
+          <input type="text" id="username-input" value="learn-000" readonly />
+        </h2>
+        <p class="role">Administrator</p>
+        <p class="user-id">0000001</p>
+      </div>
+      <div class="buttons">
+        <button class="edit-button" id="edit-button">Edit</button>
+        <button class="signout-button" onclick="goToLogin()">Sign Out</button>
+      </div>
+    </div>
+
+    <div class="welcome-message">
+      <h2>Welcome to the SAP MM module!</h2>
+      <p>
+        Join us to explore innovative material management solutions with
+        millions of businesses globally and embark on a path to success
+        together!
+      </p>
+    </div>
+
+    <script>
+      
+      function goToHomepage() {
+        window.location.href = "/";
+      }
+
+      function goToLogin() {
+        window.location.href = "login.html";
+      }
+
+      // Debugging: Ensure script is loaded
+      console.log("Script loaded successfully");
+
+      // Fetch token from Pinia store
+      const store = Pinia.useStore();
+      const token = store.token;
+
+      // Debugging: Ensure token is fetched
+      console.log("Token:", token);
+
+      // Set global headers for all POST requests
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      // Edit button functionality
+      const editButton = document.getElementById("edit-button");
+      const usernameInput = document.getElementById("username-input");
+
+      // Debugging: Ensure elements are fetched
+      console.log("Edit Button:", editButton);
+      console.log("Username Input:", usernameInput);
+
+      editButton.addEventListener("click", function () {
+        console.log("Edit button clicked");
+
+        if (usernameInput.readOnly) {
+          // Enable editing
+          usernameInput.readOnly = false;
+          usernameInput.focus();
+          editButton.textContent = "Save";
+          console.log("Editing enabled");
+        } else {
+          // Save the changes
+          const newUsername = usernameInput.value.trim();
+          if (newUsername === "") {
+            alert("Username cannot be empty.");
+            return;
+          }
+
+          usernameInput.readOnly = true;
+          editButton.textContent = "Edit";
+
+          console.log("Saving username:", newUsername);
+
+          // Send POST request to save the new username
+          fetch("/save-username", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({ username: newUsername }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert("Username saved successfully");
+              } else {
+                alert("Failed to save username");
+              }
+            })
+            .catch((error) => {
+              console.error("Error saving username:", error);
+              alert("An error occurred while saving the username");
+            });
+        }
+      });
+    </script>
+  </body>
+</html>
