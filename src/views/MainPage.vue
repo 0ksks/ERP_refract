@@ -23,7 +23,6 @@
         <MainLayout
           :titleFieldsMapping="titleFieldsMapping"
           :form="mainForm"
-          @row-click="handleRowClick"
         />
       </el-main>
     </el-container>

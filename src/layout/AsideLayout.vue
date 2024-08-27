@@ -133,7 +133,7 @@
         <el-button @click="selectFieldsDialogVisible = false">
           Cancel
         </el-button>
-        <el-button type="primary" @click="applySelectedFields">
+        <el-button type="primary" plain @click="applySelectedFields">
           Confirm
         </el-button>
       </div>

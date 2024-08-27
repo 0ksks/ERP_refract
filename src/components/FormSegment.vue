@@ -56,6 +56,7 @@ export default {
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .divider {

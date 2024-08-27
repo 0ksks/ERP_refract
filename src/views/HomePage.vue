@@ -154,6 +154,6 @@ export default {
   margin-left: 0; /* 去掉第一个卡片的左侧间距 */
 }
 .FlexCard:hover {
-  color: var(--activate);
+  color: var(--blank-hover);
 }
 </style>
