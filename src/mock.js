@@ -1,28 +1,5 @@
 import Mock from "mockjs";
 
-// 定义一个随机值生成的函数，带有一定概率返回相同的值
-function randomValueGenerator(template) {
-  return Mock.mock(template);
-}
-
-function maybeSameField(template, sameProbability = 0.2) {
-  const value = randomValueGenerator(template);
-  return Math.random() < sameProbability ? value : randomValueGenerator(template);
-}
-
-function responseTemplate(code, msg, data) {
-  return {
-    code: code,
-    message: msg,
-    data:data
-  }
-}
-
-const login_success = Mock.mock({ username: "@name", role: "@word", token: "@id"})
-Mock.mock("/api/user/login", "post", responseTemplate(201, "success", login_success))
-
-
-// 创建实体的Mock数据
 function createMaterialEntity() {
   return {
     materialID: randomValueGenerator("@integer(1, 1000)"),
@@ -33,7 +10,7 @@ function createMaterialEntity() {
     materialGroup: randomValueGenerator("@word"),
     division: randomValueGenerator("@word"),
     grossWeight: randomValueGenerator("@float(0.1, 100.0, 1, 2)"),
-    nettWeight: randomValueGenerator("@float(0.1, 100.0, 1, 2)"),
+    netWeight: randomValueGenerator("@float(0.1, 100.0, 1, 2)"),
     weightUnit: randomValueGenerator("@word"),
     volume: randomValueGenerator("@float(0.1, 100.0, 1, 2)"),
     volumeUnit: randomValueGenerator("@word"),
@@ -46,6 +23,7 @@ function createMaterialEntity() {
     lotSize: randomValueGenerator("@word"),
     minimumLotSize: randomValueGenerator("@integer(1, 100)"),
     plannedDeliveryTime: randomValueGenerator("@date('yyyy/MM/dd')"),
+    valuationClass: randomValueGenerator("@word"),
     movingPrice: randomValueGenerator("@float(0.1, 100.0, 1, 2)"),
     priceUnit: randomValueGenerator("@word"),
     standardPrice: randomValueGenerator("@float(0.1, 100.0, 1, 2)")
@@ -77,6 +55,21 @@ function generateMaterialEntities(sameProbability = 0.5) {
 
   return materials;
 }
+// 定义一个随机值生成的函数，带有一定概率返回相同的值
+function randomValueGenerator(template) {
+  return Mock.mock(template);
+}
+
+function responseTemplate(code, msg, data) {
+  return {
+    code: code,
+    message: msg,
+    data:data
+  }
+}
+
+const login_success = Mock.mock({ username: "@name", role: "@word", token: "@id"})
+Mock.mock("/api/user/login", "post", responseTemplate(201, "success", login_success))
 
 // 返回Mock数据
 const materialList = generateMaterialEntities();

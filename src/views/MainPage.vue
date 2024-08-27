@@ -15,12 +15,15 @@
           :entity="entity"
           :filters="filters"
           :tableData="tableData"
+          @update-table-data="updateTableData"
+          @select-entity="updateMainForm"
         />
       </el-aside>
       <el-main class="inner-content">
         <MainLayout
           :titleFieldsMapping="titleFieldsMapping"
           :form="mainForm"
+          @row-click="handleRowClick"
         />
       </el-main>
     </el-container>
@@ -29,7 +32,7 @@
 </template>
 
 <script>
-import { ref } from "vue"
+import { ref,toRaw } from "vue"
 import AsideLayout from "@/layout/AsideLayout.vue"
 import MainLayout from "@/layout/MainLayout.vue"
 
@@ -107,20 +110,30 @@ export default {
         ["desc",           "desc",        "desc",      "desc"         ]
       ]
     ]
-    const mainForm = {};
+    const mainForm = ref({});
     Object.keys(filters.value).forEach(key => {
       if (key!==entity+"ID" && key!=="userID") {
         mainForm[key] = "";
       }
     });
 
+    const updateTableData = (newData) => {
+      tableData.value = newData
+      console.log("newData:",toRaw(newData))
+      console.log("mainForm:",toRaw(mainForm))
+    };
 
+    const updateMainForm = (newForm) => { 
+      mainForm.value = newForm
+    }
     return {
       entity,
       mainForm,
       filters,
       tableData,
       titleFieldsMapping,
+      updateTableData,
+      updateMainForm
     }
   },
 }

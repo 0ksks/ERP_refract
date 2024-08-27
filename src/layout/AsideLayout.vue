@@ -56,9 +56,8 @@
       <!-- 表格组件，显示筛选结果 -->
       <el-table
         :data="tableData"
-        @row-dblclick="viewDetails"
         highlight-current-row
-        @current-change="handleCurrentChange" 
+        @row-click="handleRowClick"
       >
         <!-- 定义表格列，动态显示实体ID -->
         <el-table-column
@@ -144,6 +143,7 @@
 
 <script>
 import { ref, computed, watch } from "vue";
+import apiClient from "@/axios";
 
 export default {
   props: {
@@ -160,7 +160,7 @@ export default {
       required: true,
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const localFilters = ref({});
     const selectFieldsDialogVisible = ref(false);
     const localFiltersSelection = ref({});
@@ -193,8 +193,14 @@ export default {
       selectFieldsDialogVisible.value = false;
     };
 
-    const applyFilter = () => {
-      props.filterResults(localFilters.value);
+    const applyFilter = async () => {
+      try {
+        const response = await apiClient.post("/api/material/query");
+        const body = response.data
+        emit("update-table-data", body.data)
+      } catch (error) {
+        console.error("Error:", error);  // 处理错误
+      }
     };
 
     const splitFilters = computed(() => {
@@ -206,6 +212,10 @@ export default {
       return columns;
     });
 
+    const handleRowClick = (row) => {
+      emit("select-entity", row);
+    };
+
     return {
       localFilters,
       filteredKeys,
@@ -215,6 +225,7 @@ export default {
       applySelectedFields,
       applyFilter,
       splitFilters,
+      handleRowClick
     };
   },
 };
