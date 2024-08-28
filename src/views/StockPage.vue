@@ -15,6 +15,7 @@
           :entity="entity"
           :filters="filters"
           :tableData="tableData"
+          :optionColumns="['materialID']"
           @update-table-data="updateTableData"
           @select-entity="updateMainForm"
         />
@@ -44,6 +45,7 @@ export default {
   setup() {
     const entity = "stock"
     const filters = ref({
+      materialID: false,
       plant: false,
       storageLocation: false,
       quantity: false,
@@ -66,8 +68,8 @@ export default {
       ],
       [
         "Quantity Data",
-        ["quantity", "unitOfMeasure", "stockType", "valuationType"],
-        ["desc", "desc", "desc", "desc"]
+        ["materialID", "quantity", "unitOfMeasure", "stockType", "valuationType"],
+        ["desc", "desc", "desc", "desc", "desc"]
       ],
       [
         "Batch Information",

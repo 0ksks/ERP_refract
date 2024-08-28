@@ -28,6 +28,7 @@
               <!-- 输入框，绑定到localFilters对象的相应字段 -->
               <el-input
                 v-model="localFilters[key]"
+                @dblclick="clearInput(key)"
                 :placeholder="`Enter ${$sentenceCase(key)}...`"
               ><template #append>
                 <el-button 
@@ -64,6 +65,7 @@
         :data="tableData"
         highlight-current-row
         @row-click="handleRowClick"
+        @cell-dblclick="handleCellClick"
       >
         <!-- 定义表格列，动态显示实体ID -->
         <el-table-column
@@ -72,8 +74,10 @@
         ></el-table-column>
         <!-- 定义表格列，动态显示实体名称 -->
         <el-table-column
-          :prop="`${resolvedOptionColumn}Name`"
-          :label="`${$sentenceCase(resolvedOptionColumn)} Name`"
+          v-for="(column, index) in resolvedOptionColumn"
+          :key="index"
+          :prop="`${column[0]}`"
+          :label="`${column[1]}`"
         ></el-table-column>
         <!-- 固定显示用户ID列 -->
         <el-table-column prop="userID" label="User ID"></el-table-column>
@@ -151,7 +155,8 @@
 import { ref, computed, watch, getCurrentInstance } from "vue";
 import {useUserStore} from "@/store"
 import apiClient from "@/axios";
-import {CopyDocument} from "@element-plus/icons-vue"
+import { CopyDocument } from "@element-plus/icons-vue"
+import { ElMessage } from "element-plus";
 
 export default {
   props: {
@@ -167,14 +172,17 @@ export default {
       type: Array,
       required: true,
     },
-    optionColumn: {
-      type: String,
+    optionColumns: {
+      type: Array,
       default: null,
     },
   },
   computed: {
     resolvedOptionColumn() {
-      return this.optionColumn || this.entity;
+      if (this.optionColumns) {
+        return this.optionColumns.map(column => [column, this.$sentenceCase(column)]);
+      }
+      return [[this.entity + "Name", this.$sentenceCase(this.entity) + " Name"]];
     },
   },
   data() {
@@ -183,6 +191,9 @@ export default {
     }
   },
   methods: {
+    clearInput(key) {
+      this.localFilters[key] = ""
+    },
     async handleCopyPaste(key) {
 
       const value = this.localFilters[key];
@@ -201,7 +212,6 @@ export default {
           const text = await navigator.clipboard.readText();
           console.log(text)
           this.localFilters[key] = text
-          this.$message.success("pasted");
         } catch (err) {
           this.$message.error(err);
         }
@@ -267,9 +277,21 @@ export default {
       return columns;
     });
 
-    const handleRowClick = (row) => {
+    const handleRowClick = async (row) => {
       emit("select-entity", row);
     };
+
+    const handleCellClick = async (row, column, cell, event) => {
+      const cellValue = row[column.property];
+      if (cellValue) {
+        try {
+          await navigator.clipboard.writeText(cellValue);
+          ElMessage.success("copied")
+        } catch (err) {
+          ElMessage.error("failed")
+        }
+      }
+    }
 
     return {
       localFilters,
@@ -281,6 +303,7 @@ export default {
       applyFilter,
       splitFilters,
       handleRowClick,
+      handleCellClick,
       store
     };
   },

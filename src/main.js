@@ -1,7 +1,6 @@
 import { createApp } from "vue"
 import App from "./App.vue"
 const app = createApp(App)
-// import Mock from "./mock"
 
 // 引入element-plus
 import ElementPlus from "element-plus"

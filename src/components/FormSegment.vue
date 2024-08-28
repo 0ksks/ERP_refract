@@ -19,6 +19,7 @@
                 <el-icon :id="key" class="help-info">
                   <InfoFilled />
                 </el-icon>
+                
                 <template #popper>
                   <p>
                     {{ desc[index] }}
@@ -29,12 +30,16 @@
             <el-tooltip
               :visible="inputFocused[index] && isOverflow[index]"
               placement="bottom"
-              :content="form[key]"
+              popper-style="max-width: 200px; background-color: black;"
             >
+              <template #content>
+                {{ form[key] }}
+              </template>
               <div class="input-wrapper">
                 <el-input
                   v-model="form[key]"
                   ref="inputRefs"
+                  @dblclick="clearInput(key)"
                   @focus="handleFocus(index)"
                   @blur="handleBlur(index)"
                   @input="checkOverflow(index)"
@@ -74,6 +79,9 @@ export default {
     };
   },
   methods: {
+    clearInput(key) {
+      this.form[key] = ""
+    },
     handleFocus(index) {
       this.inputFocused[index] = true;
       this.checkOverflow(index);
@@ -101,7 +109,6 @@ export default {
         try {
           const text = await navigator.clipboard.readText();
           this.form[key] = text;
-          this.$message.success("pasted");
         } catch (err) {
           this.$message.error("failed");
         }
@@ -130,9 +137,5 @@ export default {
   display: inline-block;
   width: 190px;
   font-family: "Inter", sans-serif;
-}
-
-.el-tooltip__popper {
-  max-width: 300px;
 }
 </style>

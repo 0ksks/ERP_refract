@@ -15,6 +15,7 @@
           :entity="entity"
           :filters="filters"
           :tableData="tableData"
+          :optionColumns="['purchaseOrderID']"
           @update-table-data="updateTableData"
           @select-entity="updateMainForm"
         />
