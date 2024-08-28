@@ -30,7 +30,7 @@
 import FormSegment from "@/components/FormSegment.vue";
 import { ElMessage, ElMessageBox } from "element-plus"
 import { ref,h } from "vue"
-import { Edit, CirclePlus, Delete } from "@element-plus/icons-vue"
+import { CirclePlus, Upload, Delete } from "@element-plus/icons-vue"
 import apiClient from "@/axios";
 
 export default {
@@ -74,7 +74,12 @@ export default {
           customClass: "custom-confirm-button",
         }
       ).then(async () => {
-        await apiClient.post("/"+this.$snakeCase(this.entity) + "/" + mapping.proto)
+        const data = JSON.parse(JSON.stringify(this.form))
+        if (this.mode === "creating") {
+          delete data[this.entity + "ID"]
+        }
+        await apiClient[mapping.method]("/" + this.$snakeCase(this.entity) + "/" + mapping.proto, data)
+        console.log(mapping.proto, data)
         ElMessage({
           type: mapping.type,
           message: mapping.proto + " success",
@@ -91,9 +96,25 @@ export default {
   setup() {
     const mode = ref("creating")
     const modeMapping = {
-      creating: {proto: "create", type: "success", icon: CirclePlus, color: "#67c23a"},
-      updating: {proto: "update", type: "warning", icon: Edit, color: "#e6a23c"},
-      deleting: {proto: "delete", type: "error", icon: Delete, color: "#f56c6c"}
+      creating: {
+        proto: "create",
+        type: "success",
+        icon: CirclePlus,
+        color: "#67c23a",
+        method: "post"
+      },
+      updating: {
+        proto: "update",
+        type: "warning",
+        icon: Upload, 
+        color: "#e6a23c",
+        method: "patch"},
+      deleting: {
+        proto: "delete",
+        type: "error",
+        icon: Delete,
+        color: "#f56c6c"
+      }
     }
     const handleClick = (tab) => {
       console.log(tab.props.name)

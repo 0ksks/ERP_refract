@@ -19,10 +19,10 @@
             class="username-input"
           ></el-input>
           <el-tag type="info" class="role">
-            Administrator
+            {{ parsedToken.role }}
           </el-tag>
           <el-tag type="success" class="user-id">
-            ID: 0000001
+            ID: {{ parsedToken.userID }}
           </el-tag>
         </div>
         <div class="buttons">
@@ -57,9 +57,10 @@ import BannerHeader from "@/components/BannerHeader.vue";
 // 使用 Pinia store
 const store = useUserStore();
 const token = store.token;
+const parsedToken = JSON.parse(atob(token))
 
 // 定义响应式状态
-const username = ref("learn-000");
+const username = parsedToken.username
 const avatarUrl = ref("profile-placeholder.jpeg");
 const isEditing = ref(false);
 

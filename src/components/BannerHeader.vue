@@ -85,5 +85,6 @@ export default {
 /* 当鼠标悬停在 el-icon 上时，颜色变为激活状态颜色 */
 .el-icon:hover {
   color: var(--background-hover); /* 使用CSS变量定义的激活颜色 */
+  cursor: pointer;
 }
 </style>

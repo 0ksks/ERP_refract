@@ -84,6 +84,7 @@ html {
 /* 定义鼠标悬停在帮助信息上的样式变化 */
 .help-info:hover {
   color: var(--hover);
+  cursor: pointer;
   /* 改变文本颜色为CSS变量中的hover颜色 */
 }
 
@@ -103,4 +104,17 @@ html {
     font-family: "Inter", sans;
     /* 字体为Inter或系统默认无衬线字体 */
   }
+}
+
+.copy-button {
+  background-color: #ffffff !important; /* 设置背景色 */
+  border-color: #dcdcdc !important; /* 设置边框颜色 */
+  border-left: none !important;
+  padding: auto;
+  color: #606266 !important; /* 设置字体颜色 */
+  border-radius: 0 4px 4px 0; /* 圆角 */
+}
+
+.copy-button:hover {
+  color: var(--hover) !important;
 }

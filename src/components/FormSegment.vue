@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p class="text-title">
-      {{ title }}
-    </p>
+    <p class="text-title">{{ title }}</p>
     <el-divider class="divider"></el-divider>
     <el-form :model="form" label-width="auto" label-position="left">
       <el-row :gutter="20">
@@ -16,23 +14,37 @@
                 :auto-hide="false"
                 theme="info-tooltip"
               >
-                <el-icon
-                  :id="key"
-                  class="help-info"
-                >
+                <el-icon :id="key" class="help-info">
                   <InfoFilled />
                 </el-icon>
                 <template #popper>
-                  <p>
-                    {{ desc[index] }}
-                  </p>
+                  <p>{{ desc[index] }}</p>
                 </template>
               </VTooltip>
             </template>
-            <el-input
-              v-model="form[key]"
-              class="text-value"
-            ></el-input>
+            <el-tooltip
+              :visible="inputFocused[index] && isOverflow[index]"
+              placement="bottom"
+              :content="form[key]"
+            >
+              <div class="input-wrapper">
+                <el-input
+                  v-model="form[key]"
+                  ref="inputRefs"
+                  @focus="handleFocus(index)"
+                  @blur="handleBlur(index)"
+                  @input="checkOverflow(index)"
+                >
+                  <template  #append>
+                    <el-button 
+                      class="copy-button"
+                      :icon="CopyDocument"
+                      @click="handleCopyPaste(key)"
+                    />
+                  </template>
+                </el-input>
+              </div>
+            </el-tooltip>
           </el-form-item>
         </el-col>
       </el-row>
@@ -41,6 +53,8 @@
 </template>
 
 <script>
+import { CopyDocument } from "@element-plus/icons-vue";
+
 export default {
   props: {
     form: { type: Object, required: true },
@@ -48,6 +62,48 @@ export default {
     fields: { type: Array, required: true },
     desc: { type: Array, required: true },
   },
+  data() {
+    return {
+      CopyDocument,
+      isOverflow: this.fields.map(() => false),
+      inputFocused: this.fields.map(() => false)
+    };
+  },
+  methods: {
+    handleFocus(index) {
+      this.inputFocused[index] = true;
+      this.checkOverflow(index);
+    },
+    handleBlur(index) {
+      this.inputFocused[index] = false;
+      this.isOverflow[index] = false;  // 失去焦点时隐藏 Tooltip
+    },
+    checkOverflow(index) {
+      this.$nextTick(() => {
+        const inputElement = this.$refs.inputRefs[index].$el.querySelector("input");
+        this.isOverflow[index] = inputElement.scrollWidth > inputElement.clientWidth;
+      });
+    },
+    async handleCopyPaste(key) {
+      const value = this.form[key];
+      if (value) {
+        try {
+          await navigator.clipboard.writeText(value);
+          this.$message.success("已复制到剪贴板");
+        } catch (err) {
+          this.$message.error("复制失败");
+        }
+      } else {
+        try {
+          const text = await navigator.clipboard.readText();
+          this.form[key] = text;
+          this.$message.success("已粘贴");
+        } catch (err) {
+          this.$message.error("粘贴失败");
+        }
+      }
+    }
+  }
 };
 </script>
 
@@ -69,6 +125,10 @@ export default {
   margin-bottom: 20px;
   display: inline-block;
   width: 190px;
-  font-family: "Inter", sans;
+  font-family: "Inter", sans-serif;
+}
+
+.el-tooltip__popper {
+  max-width: 300px;
 }
 </style>

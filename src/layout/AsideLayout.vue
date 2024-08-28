@@ -29,7 +29,13 @@
               <el-input
                 v-model="localFilters[key]"
                 :placeholder="`Enter ${$sentenceCase(key)}...`"
-              >
+              ><template #append>
+                <el-button 
+                  class="copy-button"
+                  :icon="CopyDocument"
+                  @click="handleCopyPaste(key)"
+                />
+              </template>
               </el-input>
             </el-form-item>
             <!-- 按钮，用于选择字段 -->
@@ -145,6 +151,7 @@
 import { ref, computed, watch, getCurrentInstance } from "vue";
 import {useUserStore} from "@/store"
 import apiClient from "@/axios";
+import {CopyDocument} from "@element-plus/icons-vue"
 
 export default {
   props: {
@@ -159,6 +166,37 @@ export default {
     tableData: {
       type: Array,
       required: true,
+    }
+  },
+  data() {
+    return {
+      CopyDocument
+    }
+  },
+  methods: {
+    async handleCopyPaste(key) {
+
+      const value = this.localFilters[key];
+      console.log(value)
+      if (value) {
+        // 复制输入框的值
+        try {
+          await navigator.clipboard.writeText(value);
+          this.$message.success("copied");
+        } catch (err) {
+          this.$message.error("failed");
+        }
+      } else {
+        // 粘贴剪贴板的内容到输入框
+        try {
+          const text = await navigator.clipboard.readText();
+          console.log(text)
+          this.localFilters[key] = text
+          this.$message.success("pasted");
+        } catch (err) {
+          this.$message.error(err);
+        }
+      }
     }
   },
   setup(props, { emit }) {
@@ -193,7 +231,7 @@ export default {
       localFilters.value = Object.fromEntries(
         Object.entries(localFiltersSelection.value)
           .filter(([_, value]) => value)
-          .map(([key]) => [key, ""])
+          .map(([key]) => [key, key === "userID" ? JSON.parse(atob(store.token)).userID : ""])
       );
       selectFieldsDialogVisible.value = false;
     };
@@ -233,7 +271,8 @@ export default {
       applySelectedFields,
       applyFilter,
       splitFilters,
-      handleRowClick
+      handleRowClick,
+      store
     };
   },
 };

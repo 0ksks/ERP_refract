@@ -11,7 +11,7 @@
         shadow="never"
         @mouseover="hoveredCard = 'material'"
         @mouseleave="hoveredCard = null"
-        @click="this.$router.push('/main')"
+        @click="this.$router.push('/material')"
       >
         <template #header>
           <div>
@@ -155,5 +155,6 @@ export default {
 }
 .FlexCard:hover {
   color: var(--blank-hover);
+  cursor: pointer;
 }
 </style>
