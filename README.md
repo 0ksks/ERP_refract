@@ -31,14 +31,21 @@ npm run lint
 ├── package-lock.json
 ├── package.json
 ├── public
+│   ├── PersonalSpace.html
 │   ├── favicon.ico
-│   └── index.html
+│   ├── globalCss.css
+│   ├── index.html
+│   ├── index_bg.jpg
+│   └── profile-placeholder.jpeg
 ├── src
 │   ├── App.vue
 │   ├── assets
 │   │   ├── globalCss.css
+│   │   ├── index_bg.jpg
 │   │   ├── logo.png
+│   │   ├── profile-placeholder.jpeg
 │   │   └── variables.css
+│   ├── axios.js
 │   ├── components
 │   │   ├── BannerHeader.vue
 │   │   ├── FormSegment.vue
@@ -49,10 +56,18 @@ npm run lint
 │   ├── main.js
 │   ├── router
 │   │   └── index.js
+│   ├── store
+│   │   └── index.js
 │   ├── utils
 │   │   └── globalUtils.js
 │   └── views
+│       ├── GoodsReceiptPage.vue
 │       ├── HomePage.vue
-│       └── MainPage.vue
+│       ├── LoginPage.vue
+│       ├── MaterialPage.vue
+│       ├── PurchaseOrderPage.vue
+│       ├── StockPage.vue
+│       ├── SupplierPage.vue
+│       └── UserPage.vue
 └── vue.config.js
 ```
