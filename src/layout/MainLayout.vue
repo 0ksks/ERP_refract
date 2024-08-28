@@ -2,7 +2,7 @@
   <el-container class="out-wrapper">
     <el-tabs v-model="mode" @tab-click="handleClick">
       <el-tab-pane label="Create" name="creating"></el-tab-pane>
-      <el-tab-pane label="Modify" name="modifying"></el-tab-pane>
+      <el-tab-pane label="Update" name="updating"></el-tab-pane>
       <el-tab-pane label="Delete" name="deleting"></el-tab-pane>
     </el-tabs>
     <el-main class="content-wrapper">
@@ -31,6 +31,7 @@ import FormSegment from "@/components/FormSegment.vue";
 import { ElMessage, ElMessageBox } from "element-plus"
 import { ref,h } from "vue"
 import { Edit, CirclePlus, Delete } from "@element-plus/icons-vue"
+import apiClient from "@/axios";
 
 export default {
   components: {
@@ -45,6 +46,10 @@ export default {
       type: Object,
       required: true,
     },
+    entity:{
+      type: String,
+      required: true
+    }
   },
   methods: {
     handleFormUpdate(updatedForm) {
@@ -55,7 +60,7 @@ export default {
       console.log("under ", this.mode);
       const mapping = this.modeMapping[this.mode]
       ElMessageBox.confirm(
-        "You are " + this.mode + " a record. Continue?",
+        "You are " + this.mode + " a "+this.$sentenceCase(this.entity) + ". Continue?",
         {
           confirmButtonText: "OK",
           cancelButtonText: "Cancel",
@@ -68,7 +73,8 @@ export default {
           },
           customClass: "custom-confirm-button",
         }
-      ).then(() => {
+      ).then(async () => {
+        await apiClient.post("/"+this.$snakeCase(this.entity) + "/" + mapping.proto)
         ElMessage({
           type: mapping.type,
           message: mapping.proto + " success",
@@ -86,7 +92,7 @@ export default {
     const mode = ref("creating")
     const modeMapping = {
       creating: {proto: "create", type: "success", icon: CirclePlus, color: "#67c23a"},
-      modifying: {proto: "modify", type: "warning", icon: Edit, color: "#e6a23c"},
+      updating: {proto: "update", type: "warning", icon: Edit, color: "#e6a23c"},
       deleting: {proto: "delete", type: "error", icon: Delete, color: "#f56c6c"}
     }
     const handleClick = (tab) => {

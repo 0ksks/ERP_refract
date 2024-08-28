@@ -6,6 +6,15 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 8080,
     allowedHosts: "all",
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '', // 将 '/api' 前缀代理到后端
+        },
+      },
+    },
   },
   pages: { 
     index: {

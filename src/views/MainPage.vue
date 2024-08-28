@@ -21,6 +21,7 @@
       </el-aside>
       <el-main class="inner-content">
         <MainLayout
+          :entity="entity"
           :titleFieldsMapping="titleFieldsMapping"
           :form="mainForm"
         />
@@ -71,7 +72,6 @@ export default {
     })
     const tableData = ref([])
 
-    
     const titleFieldsMapping = [
       [
         "General",
@@ -125,6 +125,7 @@ export default {
     const updateMainForm = (newForm) => { 
       mainForm.value = newForm
     }
+
     return {
       entity,
       mainForm,

@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("user", {
   state: () => ({
     token: "", // 存储用户登录的 token
-    userInfo: null, // 存储用户信息
   }),
   actions: {
     setToken(token) {
@@ -11,7 +10,6 @@ export const useUserStore = defineStore("user", {
     },
     logout() {
       this.token = "";
-      this.userInfo = null;
     },
   },
   persist: {

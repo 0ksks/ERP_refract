@@ -142,7 +142,8 @@
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, getCurrentInstance } from "vue";
+import {useUserStore} from "@/store"
 import apiClient from "@/axios";
 
 export default {
@@ -164,6 +165,9 @@ export default {
     const localFilters = ref({});
     const selectFieldsDialogVisible = ref(false);
     const localFiltersSelection = ref({});
+    const store = useUserStore()
+    const instance = getCurrentInstance()
+    const snakeCase = instance.proxy.$snakeCase
 
     watch(
       () => props.filters,
@@ -171,8 +175,9 @@ export default {
         localFilters.value = Object.fromEntries(
           Object.entries(newFilters)
             .filter(([_, value]) => value === true)
-            .map(([key]) => [key, ""])
+            .map(([key]) => [key, key === "userID" ? JSON.parse(atob(store.token)).userID : ""])
         );
+        console.log("token",atob(store.token))
         localFiltersSelection.value = { ...newFilters };
       },
       { immediate: true }
@@ -195,9 +200,12 @@ export default {
 
     const applyFilter = async () => {
       try {
-        const response = await apiClient.post("/api/material/query");
-        const body = response.data
-        emit("update-table-data", body.data)
+        const requestBody = Object.fromEntries(
+          Object.entries(localFilters.value).filter(([_, value]) => value !== "")
+        );
+        const response = await apiClient.post("/"+snakeCase(props.entity)+"/query", requestBody);
+        const responseBody = response.data;
+        emit("update-table-data", responseBody.data);
       } catch (error) {
         console.error("Error:", error);  // 处理错误
       }

@@ -9,7 +9,7 @@
         </div>
         <el-input
           placeholder="User ID"
-          v-model="username"
+          v-model="userID"
           prefix-icon="el-icon-user"
         ></el-input>
         <el-input
@@ -113,7 +113,7 @@ import apiClient from "@/axios.js";
 const store = useUserStore();
 const router = useRouter();
 
-const username = ref("");
+const userID = ref("");
 const password = ref("");
 
 const registerDialogVisible = ref(false);
@@ -132,18 +132,18 @@ const { proxy } = getCurrentInstance();
 
 const login = () => {
   const loginData = {
-    username: username.value,
+    userID: parseInt(userID.value),
     password: password.value,
   };
 
   apiClient
-    .post("/api/user/login", loginData)
+    .post("/user/login", loginData)
     .then((response) => {
       const res = response.data;
       if (res.code === 201) {
         store.setToken(res.data.token);
         proxy.$message({
-          message: `Login successful! Welcome ${res.data.username} (${res.data.role})`,
+          message: `Login successful! Welcome ${res.data.userID} (${res.data.role})`,
           type: "success",
         });
         router.push("/");
@@ -168,12 +168,12 @@ const register = () => {
   }
 
   const registerData = {
-    username: registerUsername.value,
+    userID: registerUsername.value,
     password: registerPassword.value,
   };
 
   apiClient
-    .post("/api/user/register", registerData)
+    .post("/user/register", registerData)
     .then((response) => {
       const res = response.data;
       if (res.code === 201) {
@@ -208,7 +208,7 @@ const changePassword = () => {
   };
 
   apiClient
-    .post("/api/user/change_password", changePasswordData)
+    .post("/user/change_password", changePasswordData)
     .then((response) => {
       const res = response.data;
       if (res.code === 200) {
