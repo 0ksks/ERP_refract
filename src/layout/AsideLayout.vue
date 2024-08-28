@@ -72,8 +72,8 @@
         ></el-table-column>
         <!-- 定义表格列，动态显示实体名称 -->
         <el-table-column
-          :prop="`${entity}Name`"
-          :label="`${$sentenceCase(entity)} Name`"
+          :prop="`${resolvedOptionColumn}Name`"
+          :label="`${$sentenceCase(resolvedOptionColumn)} Name`"
         ></el-table-column>
         <!-- 固定显示用户ID列 -->
         <el-table-column prop="userID" label="User ID"></el-table-column>
@@ -166,7 +166,16 @@ export default {
     tableData: {
       type: Array,
       required: true,
-    }
+    },
+    optionColumn: {
+      type: String,
+      default: null,
+    },
+  },
+  computed: {
+    resolvedOptionColumn() {
+      return this.optionColumn || this.entity;
+    },
   },
   data() {
     return {

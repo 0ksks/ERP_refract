@@ -42,73 +42,45 @@ export default {
     MainLayout,
   },
   setup() {
-    const entity = "material"
+    const entity = "stock"
     const filters = ref({
-      materialName: false,
-      description: false,
-      baseUnit: false,
-      materialGroup: false,
-      division: false,
-      grossWeight: false,
-      netWeight: false,
-      weightUnit: false,
-      volume: false,
-      volumeUnit: false,
-      transportationGroup: false,
-      packMaterial: false,
-      availabilityCheck: false,
-      loadingGroup: false,
-      mrpType: false,
-      mrpController: false,
-      lotSize: false,
-      minimumLotSize: false,
-      plannedDeliveryTime: false,
-      valuationClass: false,
-      movingPrice: false,
-      priceUnit: false,
-      standardPrice: false,
-      userID: true,
-      materialID: true,
+      plant: false,
+      storageLocation: false,
+      quantity: false,
+      unitOfMeasure: false,
+      stockType: false,
+      valuationType: false,
+      batch: false,
+      specialStockIndicator: false,
+      companyCode: false,
+      userID: true,  // Keep this true as per instruction
+      stockID: true  // Keep this true as per instruction
     })
     const tableData = ref([])
 
     const titleFieldsMapping = [
       [
-        "General",
-        ["materialName", "description", "baseUnit", "materialGroup", "division"],
-        ["desc",         "desc",        "desc",     "desc",          "desc"    ]
+        "Location",
+        ["plant", "storageLocation"],
+        ["desc", "desc"]
       ],
       [
-        "Dimensions",
-        ["grossWeight", "netWeight", "weightUnit", "volume", "volumeUnit"],
-        ["desc",        "desc",      "desc",       "desc",   "desc"      ]
+        "Quantity Data",
+        ["quantity", "unitOfMeasure", "stockType", "valuationType"],
+        ["desc", "desc", "desc", "desc"]
       ],
       [
-        "Shipping Data (times in days)",
-        ["transportationGroup", "packMaterial", "availabilityCheck", "loadingGroup"],
-        ["desc",                "desc",         "desc",              "desc"        ]
+        "Batch Information",
+        ["batch", "specialStockIndicator"],
+        ["desc", "desc"]
       ],
       [
-        "MRP Procedure",
-        ["mrpType", "mrpController"],
-        ["desc",    "desc"         ]
-      ],
-      [
-        "Lot Size Data",
-        ["lotSize", "minimumLotSize"],
-        ["desc",    "desc"          ]
-      ],
-      [
-        "Scheduling",
-        ["plannedDeliveryTime"],
-        ["desc"               ]
-      ],
-      [
-        "Accounting",
-        ["valuationClass", "movingPrice", "priceUnit", "standardPrice"],
-        ["desc",           "desc",        "desc",      "desc"         ]
+        "Company Data",
+        ["companyCode"],
+        ["desc"]
       ]
     ]
+
     const mainForm = ref({});
     Object.keys(filters.value).forEach(key => {
       if (key!==entity+"ID" && key!=="userID") {

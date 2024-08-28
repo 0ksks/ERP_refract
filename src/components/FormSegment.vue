@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p class="text-title">{{ title }}</p>
+    <p class="text-title">
+      {{ title }}
+    </p>
     <el-divider class="divider"></el-divider>
     <el-form :model="form" label-width="auto" label-position="left">
       <el-row :gutter="20">
@@ -18,7 +20,9 @@
                   <InfoFilled />
                 </el-icon>
                 <template #popper>
-                  <p>{{ desc[index] }}</p>
+                  <p>
+                    {{ desc[index] }}
+                  </p>
                 </template>
               </VTooltip>
             </template>
@@ -89,17 +93,17 @@ export default {
       if (value) {
         try {
           await navigator.clipboard.writeText(value);
-          this.$message.success("已复制到剪贴板");
+          this.$message.success("copied");
         } catch (err) {
-          this.$message.error("复制失败");
+          this.$message.error("failed");
         }
       } else {
         try {
           const text = await navigator.clipboard.readText();
           this.form[key] = text;
-          this.$message.success("已粘贴");
+          this.$message.success("pasted");
         } catch (err) {
-          this.$message.error("粘贴失败");
+          this.$message.error("failed");
         }
       }
     }

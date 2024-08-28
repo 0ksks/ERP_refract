@@ -42,73 +42,45 @@ export default {
     MainLayout,
   },
   setup() {
-    const entity = "material"
+    const entity = "purchaseOrder"
     const filters = ref({
-      materialName: false,
-      description: false,
-      baseUnit: false,
-      materialGroup: false,
-      division: false,
-      grossWeight: false,
-      netWeight: false,
-      weightUnit: false,
-      volume: false,
-      volumeUnit: false,
-      transportationGroup: false,
-      packMaterial: false,
-      availabilityCheck: false,
-      loadingGroup: false,
-      mrpType: false,
-      mrpController: false,
-      lotSize: false,
-      minimumLotSize: false,
-      plannedDeliveryTime: false,
-      valuationClass: false,
-      movingPrice: false,
-      priceUnit: false,
-      standardPrice: false,
-      userID: true,
-      materialID: true,
+      orderDate: false,
+      deliveryDate: false,
+      quantity: false,
+      netPrice: false,
+      currency: false,
+      purchasingGroup: false,
+      purchasingOrganization: false,
+      plant: false,
+      paymentTerms: false,
+      userID: true,  // Keep this true as per instruction
+      purchaseOrderID: true  // Keep this true as per instruction
     })
     const tableData = ref([])
 
     const titleFieldsMapping = [
       [
-        "General",
-        ["materialName", "description", "baseUnit", "materialGroup", "division"],
-        ["desc",         "desc",        "desc",     "desc",          "desc"    ]
+        "Order Dates",
+        ["orderDate", "deliveryDate"],
+        ["desc", "desc"]
       ],
       [
-        "Dimensions",
-        ["grossWeight", "netWeight", "weightUnit", "volume", "volumeUnit"],
-        ["desc",        "desc",      "desc",       "desc",   "desc"      ]
+        "Order Details",
+        ["quantity", "netPrice", "currency"],
+        ["desc", "desc", "desc"]
       ],
       [
-        "Shipping Data (times in days)",
-        ["transportationGroup", "packMaterial", "availabilityCheck", "loadingGroup"],
-        ["desc",                "desc",         "desc",              "desc"        ]
+        "Purchasing Information",
+        ["purchasingGroup", "purchasingOrganization", "plant"],
+        ["desc", "desc", "desc"]
       ],
       [
-        "MRP Procedure",
-        ["mrpType", "mrpController"],
-        ["desc",    "desc"         ]
-      ],
-      [
-        "Lot Size Data",
-        ["lotSize", "minimumLotSize"],
-        ["desc",    "desc"          ]
-      ],
-      [
-        "Scheduling",
-        ["plannedDeliveryTime"],
-        ["desc"               ]
-      ],
-      [
-        "Accounting",
-        ["valuationClass", "movingPrice", "priceUnit", "standardPrice"],
-        ["desc",           "desc",        "desc",      "desc"         ]
+        "Financial Data",
+        ["paymentTerms"],
+        ["desc"]
       ]
     ]
+
     const mainForm = ref({});
     Object.keys(filters.value).forEach(key => {
       if (key!==entity+"ID" && key!=="userID") {

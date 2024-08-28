@@ -30,6 +30,7 @@
         shadow="never"
         @mouseover="hoveredCard = 'supplier'"
         @mouseleave="hoveredCard = null"
+        @click="this.$router.push('/supplier')"
       >
         <template #header>
           <div>
@@ -48,6 +49,7 @@
         shadow="never"
         @mouseover="hoveredCard = 'stock'"
         @mouseleave="hoveredCard = null"
+        @click="this.$router.push('/stock')"
       >
         <template #header>
           <div>
@@ -66,6 +68,7 @@
         shadow="never"
         @mouseover="hoveredCard = 'purchaseOrder'"
         @mouseleave="hoveredCard = null"
+        @click="this.$router.push('/purchase_order')"
       >
         <template #header>
           <div>
@@ -84,6 +87,7 @@
         shadow="never"
         @mouseover="hoveredCard = 'goodsReceipt'"
         @mouseleave="hoveredCard = null"
+        @click="this.$router.push('/goods_receipt')"
       >
         <template #header>
           <div>
@@ -102,6 +106,7 @@
         shadow="never"
         @mouseover="hoveredCard = 'documentFlow'"
         @mouseleave="hoveredCard = null"
+        @click="this.$router.push('/document_flow')"
       >
         <template #header>
           <div>

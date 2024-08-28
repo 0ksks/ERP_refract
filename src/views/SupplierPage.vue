@@ -42,73 +42,56 @@ export default {
     MainLayout,
   },
   setup() {
-    const entity = "material"
+    const entity = "supplier"
     const filters = ref({
-      materialName: false,
-      description: false,
-      baseUnit: false,
-      materialGroup: false,
-      division: false,
-      grossWeight: false,
-      netWeight: false,
-      weightUnit: false,
-      volume: false,
-      volumeUnit: false,
-      transportationGroup: false,
-      packMaterial: false,
-      availabilityCheck: false,
-      loadingGroup: false,
-      mrpType: false,
-      mrpController: false,
-      lotSize: false,
-      minimumLotSize: false,
-      plannedDeliveryTime: false,
-      valuationClass: false,
-      movingPrice: false,
-      priceUnit: false,
-      standardPrice: false,
-      userID: true,
-      materialID: true,
+      supplierName: false,
+      address: false,
+      communicationLang: false,
+      taxNumber: false,
+      companyCode: false,
+      reconciliationAcct: false,
+      termsOfPayment: false,
+      checkDoubleInvoice: false,
+      clerkName: false,
+      purchasingOrg: false,
+      orderCurrency: false,
+      paymentTerms: false,
+      partnerFunctions: false,
+      streetAddress: false,
+      postalCode: false,
+      country: false,
+      region: false,
+      city: false,
+      contactInfo: false,
+      discountConditions: false,
+      userID: true,  // Keep this true as per instruction
+      supplierID: true  // Keep this true as per instruction
     })
     const tableData = ref([])
 
     const titleFieldsMapping = [
       [
-        "General",
-        ["materialName", "description", "baseUnit", "materialGroup", "division"],
-        ["desc",         "desc",        "desc",     "desc",          "desc"    ]
+        "Address Information",
+        ["supplierName", "address", "streetAddress", "postalCode", "city", "region", "country"],
+        ["desc", "desc", "desc", "desc", "desc", "desc", "desc"]
       ],
       [
-        "Dimensions",
-        ["grossWeight", "netWeight", "weightUnit", "volume", "volumeUnit"],
-        ["desc",        "desc",      "desc",       "desc",   "desc"      ]
+        "Communication",
+        ["communicationLang", "contactInfo", "clerkName"],
+        ["desc", "desc", "desc"]
       ],
       [
-        "Shipping Data (times in days)",
-        ["transportationGroup", "packMaterial", "availabilityCheck", "loadingGroup"],
-        ["desc",                "desc",         "desc",              "desc"        ]
+        "Financial Data",
+        ["taxNumber", "companyCode", "reconciliationAcct", "orderCurrency", "paymentTerms", "discountConditions"],
+        ["desc", "desc", "desc", "desc", "desc", "desc"]
       ],
       [
-        "MRP Procedure",
-        ["mrpType", "mrpController"],
-        ["desc",    "desc"         ]
-      ],
-      [
-        "Lot Size Data",
-        ["lotSize", "minimumLotSize"],
-        ["desc",    "desc"          ]
-      ],
-      [
-        "Scheduling",
-        ["plannedDeliveryTime"],
-        ["desc"               ]
-      ],
-      [
-        "Accounting",
-        ["valuationClass", "movingPrice", "priceUnit", "standardPrice"],
-        ["desc",           "desc",        "desc",      "desc"         ]
+        "Purchasing Information",
+        ["termsOfPayment", "checkDoubleInvoice", "purchasingOrg", "partnerFunctions"],
+        ["desc", "desc", "desc", "desc"]
       ]
     ]
+
     const mainForm = ref({});
     Object.keys(filters.value).forEach(key => {
       if (key!==entity+"ID" && key!=="userID") {
