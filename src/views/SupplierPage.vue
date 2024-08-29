@@ -72,23 +72,23 @@ export default {
     const titleFieldsMapping = [
       [
         "Address Information",
-        ["supplierName", "address", "streetAddress", "postalCode", "city", "region", "country"],
-        ["desc", "desc", "desc", "desc", "desc", "desc", "desc"]
+        ["supplierName", "streetAddress", "postalCode", "city", "region", "country"],
+        ["Standard price of materials", "Supplier's street address", "The postal code of the supplier's address", "City where the supplier is located", "The region or province where the supplier is located", "The country where the supplier is located"]
       ],
       [
         "Communication",
         ["communicationLang", "contactInfo", "clerkName"],
-        ["desc", "desc", "desc"]
+        ["Common language for communication with suppliers", "Supplier's contact information, including phone numbers, etc", "Supplier's contact person name"]
       ],
       [
         "Financial Data",
-        ["taxNumber", "companyCode", "reconciliationAcct", "orderCurrency", "paymentTerms", "discountConditions"],
-        ["desc", "desc", "desc", "desc", "desc", "desc"]
+        ["taxNumber", "companyCode", "reconciliationAcct", "orderCurrency",  "discountConditions"],
+        ["Supplier's tax registration number", "Company code for transactions with suppliers", "Supplier's reconciliation account, used for accounting reconciliation", "Currency type for transactions with suppliers", "desc"]
       ],
       [
         "Purchasing Information",
         ["termsOfPayment", "checkDoubleInvoice", "purchasingOrg", "partnerFunctions"],
-        ["desc", "desc", "desc", "desc"]
+        ["Specific payment terms reached with suppliers", "Check for duplicate invoices", "The unique identifier of the procurement team responsible for managing the procurement activities of the supplier", "The role or function of suppliers in transactions"]
       ]
     ]
 

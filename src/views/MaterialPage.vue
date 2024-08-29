@@ -76,37 +76,37 @@ export default {
       [
         "General",
         ["materialName", "description", "baseUnit", "materialGroup", "division"],
-        ["desc",         "desc",        "desc",     "desc",          "desc"    ]
+        ["Name of material", "Detailed description of materials", "The basic unit of measurement for materials, such as units, kilograms, etc", "The classification or group to which the material belongs", "The department or business area of the company to which the material belongs"]
       ],
       [
         "Dimensions",
         ["grossWeight", "netWeight", "weightUnit", "volume", "volumeUnit"],
-        ["desc",        "desc",      "desc",       "desc",   "desc"      ]
+        ["The weight of the material and its packaging",        "Weight of materials without packaging", "The unit of measurement for material weight, such as kilograms, tons, etc", "Volume of materials", "The unit of measurement for material volume, such as cubic meters, etc"]
       ],
       [
         "Shipping Data (times in days)",
         ["transportationGroup", "packMaterial", "availabilityCheck", "loadingGroup"],
-        ["desc",                "desc",         "desc",              "desc"        ]
+        ["The transportation group of materials, used for transportation planning", "Types of materials used for packaging materials", "When creating a production or procurement plan, the system checks the availability of materials to ensure the feasibility of the plan", "The loading group of materials, used for loading planning"]
       ],
       [
         "MRP Procedure",
         ["mrpType", "mrpController"],
-        ["desc",    "desc"         ]
+        ["Material Requirements Planning (MRP) type for materials", "The MRP controller responsible for this materia"]
       ],
       [
         "Lot Size Data",
         ["lotSize", "minimumLotSize"],
-        ["desc",    "desc"          ]
+        ["Batch size of materials", "Minimum batch size of materials"]
       ],
       [
         "Scheduling",
         ["plannedDeliveryTime"],
-        ["desc"               ]
+        ["The planned delivery time of materials, measured in days"]
       ],
       [
         "Accounting",
         ["valuationClass", "movingPrice", "priceUnit", "standardPrice"],
-        ["desc",           "desc",        "desc",      "desc"         ]
+        ["Valuation category of materials, used for financial accounting", "A method for estimating inventory value: the average price of all purchases and inventory received to determine the current valuation of materials", "Unit of measurement for material prices", "Standard price of materials"]
       ]
     ]
     const mainForm = ref({});
