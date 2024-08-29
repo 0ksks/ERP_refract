@@ -20,9 +20,11 @@
             </el-icon>Material
           </div>
         </template>
-        <template v-if="hoveredCard === 'material'">{{
-          materialDesc
-        }}</template>
+        <template v-if="hoveredCard === 'material'">
+          <p style="font-size: small;">
+            {{materialDesc}}
+          </p>
+        </template>
       </el-card>
 
       <el-card
@@ -39,9 +41,11 @@
             </el-icon>Supplier
           </div>
         </template>
-        <template v-if="hoveredCard === 'supplier'">{{
-          supplierDesc
-        }}</template>
+        <template v-if="hoveredCard === 'supplier'">
+          <p style="font-size: small;">
+            {{supplierDesc}}
+          </p>
+        </template>
       </el-card>
 
       <el-card
@@ -59,7 +63,9 @@
           </div>
         </template>
         <template v-if="hoveredCard === 'stock'">
-          {{ stockDesc }}
+          <p style="font-size: small;">
+            {{ stockDesc }}
+          </p>
         </template>
       </el-card>
 
@@ -78,7 +84,9 @@
           </div>
         </template>
         <template v-if="hoveredCard === 'purchaseOrder'">
-          {{ purchaseOrderDesc }}
+          <p style="font-size: small;">
+            {{ purchaseOrderDesc }}
+          </p>
         </template>
       </el-card>
 
@@ -96,9 +104,11 @@
             </el-icon>Goods Receipt
           </div>
         </template>
-        <template v-if="hoveredCard === 'goodsReceipt'">{{
-          goodsReceiptDesc
-        }}</template>
+        <template v-if="hoveredCard === 'goodsReceipt'">
+          <p style="font-size: small;">
+            {{goodsReceiptDesc}}
+          </p>
+        </template>
       </el-card>
 
       <el-card
@@ -115,9 +125,11 @@
             </el-icon>Document Flow
           </div>
         </template>
-        <template v-if="hoveredCard === 'documentFlow'">{{
-          documentFlowDesc
-        }}</template>
+        <template v-if="hoveredCard === 'documentFlow'">
+          <p style="font-size: small;">
+            {{documentFlowDesc}}
+          </p>
+        </template>
       </el-card>
     </div>
     <el-footer></el-footer>
@@ -128,12 +140,12 @@
 export default {
   data() {
     return {
-      materialDesc: "Material Desc",
-      stockDesc: "Stock Desc",
-      supplierDesc: "Supplier Desc",
-      purchaseOrderDesc: "Purchase Order Desc",
-      goodsReceiptDesc: "Goods Receipt Desc",
-      documentFlowDesc: "Document Flow Desc",
+      materialDesc: "The physical goods, components, or raw substances that are used in the production process to create finished products",
+      stockDesc: "The stored inventory of materials, components, or finished goods that a business holds to meet production demands and customer orders",
+      supplierDesc: "The company or individual that provides goods, materials, or services to another organization",
+      purchaseOrderDesc: "The formal document issued by a buyer to a supplier, detailing the specific goods or services required, along with the agreed-upon quantities, prices, and delivery terms",
+      goodsReceiptDesc: "The document or process that confirms the receipt of goods or materials from a supplier, verifying that the delivered items match the purchase order in terms of quantity, quality, and condition",
+      documentFlowDesc: "The sequential and organized movement of documents within a business process",
       hoveredCard: null, // 用于跟踪当前悬停的卡片
     }
   },
@@ -150,7 +162,7 @@ export default {
 .FlexCard {
   flex: 1; /* 每个卡片平分宽度 */
   margin: 0 10px; /* 控制卡片之间的间距 */
-  height: 200px;
+  height: 250px;
 }
 .FlexCard:last-child {
   margin-right: 0; /* 去掉最后一个卡片的右侧间距 */

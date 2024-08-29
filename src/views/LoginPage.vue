@@ -59,6 +59,7 @@
             placeholder="Confirm Password"
             v-model="registerConfirmPassword"
             :prefix-icon="Check"
+            show-password
           ></el-input>
           <div class="dialog-footer">
             <div class="button-container">
