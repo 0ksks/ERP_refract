@@ -10,25 +10,29 @@
         <el-input
           placeholder="User ID"
           v-model="userID"
-          prefix-icon="el-icon-user"
+          :prefix-icon="User"
         ></el-input>
         <el-input
           placeholder="Password"
           v-model="password"
-          prefix-icon="el-icon-lock"
+          :prefix-icon="Lock"
           show-password
         ></el-input>
         <div class="buttons">
-          <el-button type="primary" @click="login">
-            Log On
-          </el-button>
-          <el-button
-            type="text"
-            class="frameless-button"
-            @click="showRegisterDialog"
-          >
-            Register One
-          </el-button>
+          <div class="button-container">
+            <el-button type="primary" plain @click="login">
+              Log In
+            </el-button>
+          </div>
+          <div class="button-container">
+            <el-button
+              type="text"
+              class="frameless-button"
+              @click="showRegisterDialog"
+            >
+              Register
+            </el-button>
+          </div>
         </div>
         
 
@@ -37,31 +41,37 @@
           title="Register"
           v-model="registerDialogVisible"
           width="400px"
+          center
+          align-center
         >
           <el-input
             placeholder="Username"
             v-model="registerUsername"
-            prefix-icon="el-icon-user"
+            :prefix-icon="User"
           ></el-input>
           <el-input
             placeholder="Password"
             v-model="registerPassword"
-            prefix-icon="el-icon-lock"
+            :prefix-icon="Lock"
             show-password
           ></el-input>
           <el-input
             placeholder="Confirm Password"
             v-model="registerConfirmPassword"
-            prefix-icon="el-icon-check"
+            :prefix-icon="Check"
           ></el-input>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="registerDialogVisible = false">
-              Cancel
-            </el-button>
-            <el-button type="primary" @click="register">
-              Register
-            </el-button>
-          </span>
+          <div class="dialog-footer">
+            <div class="button-container">
+              <el-button @click="registerDialogVisible = false">
+                Cancel
+              </el-button>
+            </div>
+            <div class="button-container">
+              <el-button type="primary" plain @click="register">
+                Register
+              </el-button>
+            </div>
+          </div>
         </el-dialog>
 
       </el-card>
@@ -73,6 +83,8 @@
 import {useUserStore} from "@/store"
 import { useRouter } from "vue-router";
 import { ref, getCurrentInstance } from "vue";
+import {Check, Lock, User} from "@element-plus/icons-vue"
+
 import apiClient from "@/axios.js";
 
 const store = useUserStore();
@@ -183,17 +195,25 @@ const register = () => {
   margin-bottom: 20px;
 }
 
+.button-container {
+  width: 100%;
+  .el-button {
+    width: 100%
+  }
+}
+
+.el-dialog .dialog-footer {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  /* 纵向排列 */
+}
 .el-button {
   width: 100%;
   margin-bottom: 10px;
 }
 
-.frameless-button {
-  margin-top: 10px;
-  padding: 0;
-  width: 100%;
-  text-align: center;
-}
+
 .buttons {
   display: flex;
   flex-direction: column;

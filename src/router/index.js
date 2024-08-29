@@ -7,6 +7,7 @@ import SupplierPage from "@/views/SupplierPage.vue";
 import StockPage from "@/views/StockPage.vue";
 import PurchaseOrderPage from "@/views/PurchaseOrderPage.vue";
 import GoodsReceiptPage from "@/views/GoodsReceiptPage.vue";
+import DocumentFlowPage from "@/views/DocumentFlowPage.vue";
 import { useUserStore } from "@/store"; // 导入你的 Pinia store
 
 const routes = [
@@ -55,6 +56,12 @@ const routes = [
     path: "/goods_receipt",
     name: "GoodsReceiptPage",
     component: GoodsReceiptPage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/document_flow",
+    name: "DocumentFlowPage",
+    component: DocumentFlowPage,
     meta: { requiresAuth: true },
   },
 ];

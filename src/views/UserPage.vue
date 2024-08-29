@@ -26,7 +26,7 @@
           </el-tag>
         </div>
         <div class="buttons">
-          <el-button type="primary" plain @click="toggleEdit">
+          <el-button type="primary" plain @click="toggleEdit" style="width: 50px;">
             {{ editButtonText }}
           </el-button>
           <el-button type="primary" plain @click="showChangePasswordDialog">
@@ -40,32 +40,38 @@
           title="Change Password"
           v-model="changePasswordDialogVisible"
           width="400px"
+          center
+          align-center
         >
           <el-input
             placeholder="Current Password"
             v-model="currentPassword"
-            prefix-icon="el-icon-lock"
+            :prefix-icon="Lock"
             show-password
           ></el-input>
           <el-input
             placeholder="New Password"
             v-model="newPassword"
-            prefix-icon="el-icon-lock"
+            :prefix-icon="Lock"
             show-password
           ></el-input>
           <el-input
             placeholder="Confirm New Password"
             v-model="confirmNewPassword"
-            prefix-icon="el-icon-check"
+            :prefix-icon="Check"
           ></el-input>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="changePasswordDialogVisible = false">
-              Cancel
-            </el-button>
-            <el-button type="primary" @click="changePassword">
-              Change Password
-            </el-button>
-          </span>
+          <div class="dialog-footer">
+            <div class="button-container">
+              <el-button @click="changePasswordDialogVisible = false">
+                Cancel
+              </el-button>
+            </div>
+            <div class="button-container">
+              <el-button type="primary" plain @click="changePassword">
+                Change Password
+              </el-button>
+            </div>
+          </div>
         </el-dialog>
       </el-card>
 
@@ -89,6 +95,7 @@ import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import apiClient from "@/axios.js"
 import BannerHeader from "@/components/BannerHeader.vue";
+import {Check, Lock} from "@element-plus/icons-vue"
 
 // 使用 Pinia store
 const store = useUserStore();
@@ -203,5 +210,25 @@ const logOut = () => {
 
 .welcome-message h2 {
   color: #4e91ff;
+}
+.el-dialog .el-input {
+  margin-bottom: 20px;
+}
+
+.el-dialog .dialog-footer {
+  .button-container {
+    width: 100%;
+    .el-button {
+      width: 100%
+    }
+  }
+
+}
+
+.el-dialog .dialog-footer {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  /* 纵向排列 */
 }
 </style>
