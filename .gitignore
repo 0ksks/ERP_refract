@@ -3,6 +3,7 @@
 /script
 /dist
 /.git
+/dist
 
 
 # local env files

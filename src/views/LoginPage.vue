@@ -70,7 +70,7 @@
         <!-- Change Password Dialog -->
         <el-dialog
           title="Change Password"
-          :visible.sync="changePasswordDialogVisible"
+          v-model="changePasswordDialogVisible"
           width="400px"
         >
           <el-input
@@ -143,8 +143,8 @@ const login = () => {
       if (res.code === 201) {
         store.setToken(res.data.token);
         proxy.$message({
-          message: `Login successful! Welcome ${res.data.userID} (${res.data.role})`,
-          type: "success",
+          message: `Login successful! Welcome ${res.data.username} (${res.data.role})`,
+          type: "success"
         });
         router.push("/");
       } else {
@@ -168,8 +168,9 @@ const register = () => {
   }
 
   const registerData = {
-    userID: registerUsername.value,
+    username: registerUsername.value,
     password: registerPassword.value,
+    role: "guest"
   };
 
   apiClient
@@ -180,6 +181,8 @@ const register = () => {
         proxy.$message({
           message: `Registration successful! Your UserID is ${res.data.userID}`,
           type: "success",
+          showClose: true,
+          duration: 0
         });
         registerDialogVisible.value = false;
       } else {
@@ -201,10 +204,11 @@ const changePassword = () => {
     proxy.$message.error("New password does not match");
     return;
   }
-
+  const userID = JSON.parse(atob(store.token)).userID
   const changePasswordData = {
     currentPassword: currentPassword.value,
     newPassword: newPassword.value,
+    userID: userID
   };
 
   apiClient

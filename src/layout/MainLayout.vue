@@ -16,11 +16,12 @@
           :title="item[0]"
           :fields="item[1]"
           :desc="item[2]"
+          :disabled="disabled || mode==='deleting'"
           @update:form="handleFormUpdate"
         />
       </div>
     </el-main>
-    <el-footer style="height: 25px;padding-top: 5px"><el-button type="primary" plain @click="save">
+    <el-footer style="height: 25px;padding-top: 5px"><el-button type="primary" plain @click="save" :disabled="disabled">
       Confirm
     </el-button></el-footer>
   </el-container>
@@ -28,8 +29,9 @@
 
 <script>
 import FormSegment from "@/components/FormSegment.vue";
+import { useUserStore } from "@/store"
 import { ElMessage, ElMessageBox } from "element-plus"
-import { ref,h } from "vue"
+import { ref,h,computed } from "vue"
 import { CirclePlus, Upload, Delete } from "@element-plus/icons-vue"
 import apiClient from "@/axios";
 
@@ -78,13 +80,26 @@ export default {
         if (this.mode === "creating") {
           delete data[this.entity + "ID"]
         }
-        await apiClient[mapping.method]("/" + this.$snakeCase(this.entity) + "/" + mapping.proto, data)
-        console.log(mapping.proto, data)
-        ElMessage({
-          type: mapping.type,
-          message: mapping.proto + " success",
-          icon: mapping.icon
-        })
+        let response = 0
+        if (this.mode !== "deleting") {
+          response = await apiClient[mapping.method]("/" + this.$snakeCase(this.entity) + "/" + mapping.proto, data)
+        } else {
+          response = await apiClient.delete("/" + this.$snakeCase(this.entity) + "/delete/" + data[this.entity + "ID"])
+        }
+        if (response.data.code === 200 || response.data.code === 201) {
+          ElMessage({
+            type: mapping.type,
+            message: mapping.proto + " success",
+            icon: mapping.icon
+          })
+        } else {
+          ElMessage({
+            type: "error",
+            showClose: true, 
+            duration: 0,
+            message: response.data.message
+          })
+        }
       }).catch(() => {
         ElMessage({
           type: "info",
@@ -93,8 +108,20 @@ export default {
       })
     },
   },
-  setup() {
+  setup(props) {
     const mode = ref("creating")
+    let store = useUserStore()
+    store = JSON.parse(atob(store.token))
+    const disabled = computed(() => {
+      const userRole = store.role
+      if (userRole==="guest"){
+        return true
+      } else if (userRole === "admin") {
+        return false
+      } else {
+        return store.userID !== props.form.userID
+      }
+    })
     const modeMapping = {
       creating: {
         proto: "create",
@@ -113,7 +140,8 @@ export default {
         proto: "delete",
         type: "error",
         icon: Delete,
-        color: "#f56c6c"
+        color: "#f56c6c",
+        method: "delete"
       }
     }
     const handleClick = (tab) => {
@@ -122,7 +150,8 @@ export default {
     return {
       mode,
       handleClick,
-      modeMapping
+      modeMapping,
+      disabled
     }
   }
 };

@@ -115,14 +115,13 @@ export default {
         mainForm[key] = "";
       }
     });
+    
 
     const updateTableData = (newData) => {
       tableData.value = newData
-      console.log("newData:",toRaw(newData))
-      console.log("mainForm:",toRaw(mainForm))
     };
 
-    const updateMainForm = (newForm) => { 
+    const updateMainForm = (newForm) => {
       mainForm.value = newForm
     }
 

@@ -29,8 +29,8 @@
           <el-button type="primary" plain @click="toggleEdit">
             {{ editButtonText }}
           </el-button>
-          <el-button @click="this.$router.push('/login')">
-            Sign Out
+          <el-button @click="logOut">
+            Log Out
           </el-button>
         </div>
       </el-card>
@@ -51,16 +51,19 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useUserStore } from "@/store";
-import { ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
+import apiClient from "@/axios.js"
 import BannerHeader from "@/components/BannerHeader.vue";
 
 // 使用 Pinia store
 const store = useUserStore();
 const token = store.token;
 const parsedToken = JSON.parse(atob(token))
+const router = useRouter()
 
 // 定义响应式状态
-const username = parsedToken.username
+const username = ref(parsedToken.username)
 const avatarUrl = ref("profile-placeholder.jpeg");
 const isEditing = ref(false);
 
@@ -68,28 +71,19 @@ const isEditing = ref(false);
 const editButtonText = computed(() => (isEditing.value ? "Save" : "Edit"));
 
 // 编辑按钮点击处理逻辑
-const toggleEdit = () => {
+const toggleEdit = async() => {
   isEditing.value = !isEditing.value;
   if (!isEditing.value) {
     // 保存逻辑
-    fetch("/save-username", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: username.value }),
-    })
+    const tokenParsed = JSON.parse(atob(store.token))
+    await apiClient.post("/user/change_username", { username: username.value, userID:tokenParsed.userID })
       .then((response) => {
-        if (!response.ok) {
-          ElMessageBox.alert(
-            "Failed to save username.",
-            "Save Failed",
-            {
-              confirmButtonText: "OK",
-              type: "error",
-            }
-          );
+        if (response.status===200) {
+          ElMessage.success("change success");
+          const newInfo = tokenParsed
+          newInfo["username"] = username.value
+          const newToken = btoa(JSON.stringify(newInfo))
+          store.setToken(newToken)
         }
       })
       .catch((error) => {
@@ -98,6 +92,11 @@ const toggleEdit = () => {
   }
 };
 
+
+const logOut = () => {
+  store.logout()
+  router.push("/login")
+}
 </script>
 
 <style scoped>

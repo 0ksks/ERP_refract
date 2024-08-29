@@ -39,6 +39,7 @@
                 <el-input
                   v-model="form[key]"
                   ref="inputRefs"
+                  :disabled="disabled"
                   @dblclick="clearInput(key)"
                   @focus="handleFocus(index)"
                   @blur="handleBlur(index)"
@@ -70,6 +71,7 @@ export default {
     title: { type: String, required: true },
     fields: { type: Array, required: true },
     desc: { type: Array, required: true },
+    disabled: {type: Boolean, default: false}
   },
   data() {
     return {
