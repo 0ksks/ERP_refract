@@ -45,6 +45,8 @@ export default {
   setup() {
     const entity = "purchaseOrder"
     const filters = ref({
+      supplierID: false,
+      stockID: false,
       orderDate: false,
       deliveryDate: false,
       quantity: false,
@@ -60,6 +62,11 @@ export default {
     const tableData = ref([])
 
     const titleFieldsMapping = [
+      [
+        "Order Identification",
+        ["supplierID", "stockID"],
+        ["desc", "desc"]
+      ],
       [
         "Order Dates",
         ["orderDate", "deliveryDate"],

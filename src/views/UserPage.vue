@@ -29,10 +29,44 @@
           <el-button type="primary" plain @click="toggleEdit">
             {{ editButtonText }}
           </el-button>
-          <el-button @click="logOut">
+          <el-button type="primary" plain @click="showChangePasswordDialog">
+            Change Password
+          </el-button>
+          <el-button type="danger" plain @click="logOut">
             Log Out
           </el-button>
         </div>
+        <el-dialog
+          title="Change Password"
+          v-model="changePasswordDialogVisible"
+          width="400px"
+        >
+          <el-input
+            placeholder="Current Password"
+            v-model="currentPassword"
+            prefix-icon="el-icon-lock"
+            show-password
+          ></el-input>
+          <el-input
+            placeholder="New Password"
+            v-model="newPassword"
+            prefix-icon="el-icon-lock"
+            show-password
+          ></el-input>
+          <el-input
+            placeholder="Confirm New Password"
+            v-model="confirmNewPassword"
+            prefix-icon="el-icon-check"
+          ></el-input>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="changePasswordDialogVisible = false">
+              Cancel
+            </el-button>
+            <el-button type="primary" @click="changePassword">
+              Change Password
+            </el-button>
+          </span>
+        </el-dialog>
       </el-card>
 
       <!-- 欢迎消息区域 -->
@@ -49,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, getCurrentInstance } from "vue";
 import { useUserStore } from "@/store";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
@@ -61,7 +95,12 @@ const store = useUserStore();
 const token = store.token;
 const parsedToken = JSON.parse(atob(token))
 const router = useRouter()
+const changePasswordDialogVisible = ref(false);
+const { proxy } = getCurrentInstance();
 
+const currentPassword = ref("");
+const newPassword = ref("");
+const confirmNewPassword = ref("");
 // 定义响应式状态
 const username = ref(parsedToken.username)
 const avatarUrl = ref("profile-placeholder.jpeg");
@@ -69,7 +108,42 @@ const isEditing = ref(false);
 
 // 计算编辑按钮的文本
 const editButtonText = computed(() => (isEditing.value ? "Save" : "Edit"));
+const showChangePasswordDialog = () => {
+  changePasswordDialogVisible.value = true;
+};
 
+const changePassword = () => {
+  if (newPassword.value !== confirmNewPassword.value) {
+    proxy.$message.error("New password does not match");
+    return;
+  }
+  
+  const userID = JSON.parse(atob(store.token)).userID
+  const changePasswordData = {
+    currentPassword: currentPassword.value,
+    newPassword: newPassword.value,
+    userID: userID
+  };
+
+  apiClient
+    .post("/user/change_password", changePasswordData)
+    .then((response) => {
+      const res = response.data;
+      if (res.code === 200) {
+        proxy.$message({
+          message: "Password changed successfully!",
+          type: "success",
+        });
+        changePasswordDialogVisible.value = false;
+      } else {
+        proxy.$message.error(res.message);
+      }
+    })
+    .catch((error) => {
+      console.error("Error during password change:", error);
+      proxy.$message.error("An error occurred while trying to change the password.");
+    });
+};
 // 编辑按钮点击处理逻辑
 const toggleEdit = async() => {
   isEditing.value = !isEditing.value;

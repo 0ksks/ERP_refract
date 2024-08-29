@@ -118,7 +118,10 @@ export default {
         return true
       } else if (userRole === "admin") {
         return false
-      } else {
+      } else if (!props.form.userID) {
+        return false
+      }
+      else {
         return store.userID !== props.form.userID
       }
     })

@@ -22,9 +22,6 @@
           <el-button type="primary" @click="login">
             Log On
           </el-button>
-          <el-button type="default" @click="showChangePasswordDialog">
-            Change Password
-          </el-button>
           <el-button
             type="text"
             class="frameless-button"
@@ -67,38 +64,6 @@
           </span>
         </el-dialog>
 
-        <!-- Change Password Dialog -->
-        <el-dialog
-          title="Change Password"
-          v-model="changePasswordDialogVisible"
-          width="400px"
-        >
-          <el-input
-            placeholder="Current Password"
-            v-model="currentPassword"
-            prefix-icon="el-icon-lock"
-            show-password
-          ></el-input>
-          <el-input
-            placeholder="New Password"
-            v-model="newPassword"
-            prefix-icon="el-icon-lock"
-            show-password
-          ></el-input>
-          <el-input
-            placeholder="Confirm New Password"
-            v-model="confirmNewPassword"
-            prefix-icon="el-icon-check"
-          ></el-input>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="changePasswordDialogVisible = false">
-              Cancel
-            </el-button>
-            <el-button type="primary" @click="changePassword">
-              Change Password
-            </el-button>
-          </span>
-        </el-dialog>
       </el-card>
     </el-main>
   </el-container>
@@ -117,15 +82,10 @@ const userID = ref("");
 const password = ref("");
 
 const registerDialogVisible = ref(false);
-const changePasswordDialogVisible = ref(false);
 
 const registerUsername = ref("");
 const registerPassword = ref("");
 const registerConfirmPassword = ref("");
-
-const currentPassword = ref("");
-const newPassword = ref("");
-const confirmNewPassword = ref("");
 
 // 获取当前实例
 const { proxy } = getCurrentInstance();
@@ -192,42 +152,6 @@ const register = () => {
     .catch((error) => {
       console.error("注册时发生错误:", error);
       proxy.$message.error("注册时发生错误。");
-    });
-};
-
-const showChangePasswordDialog = () => {
-  changePasswordDialogVisible.value = true;
-};
-
-const changePassword = () => {
-  if (newPassword.value !== confirmNewPassword.value) {
-    proxy.$message.error("New password does not match");
-    return;
-  }
-  const userID = JSON.parse(atob(store.token)).userID
-  const changePasswordData = {
-    currentPassword: currentPassword.value,
-    newPassword: newPassword.value,
-    userID: userID
-  };
-
-  apiClient
-    .post("/user/change_password", changePasswordData)
-    .then((response) => {
-      const res = response.data;
-      if (res.code === 200) {
-        proxy.$message({
-          message: "Password changed successfully!",
-          type: "success",
-        });
-        changePasswordDialogVisible.value = false;
-      } else {
-        proxy.$message.error(res.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Error during password change:", error);
-      proxy.$message.error("An error occurred while trying to change the password.");
     });
 };
 </script>
