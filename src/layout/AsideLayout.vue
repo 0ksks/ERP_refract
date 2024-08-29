@@ -40,18 +40,23 @@
               </el-input>
             </el-form-item>
             <!-- 按钮，用于选择字段 -->
-            <el-button 
-              type="primary"
-              plain
-              @click="openSelectFieldsDialog"
-            >Select Fields</el-button>
-            <!-- 按钮，点击时应用筛选条件 -->
-            <el-button 
-              type="primary"
-              plain
-              @click="applyFilter"
-            >Find
-            </el-button>
+            <div class="button-container">
+              <el-button 
+                class="search-button"
+                type="primary"
+                plain
+                @click="openSelectFieldsDialog"
+              >Select Fields
+              </el-button>
+              <!-- 按钮，点击时应用筛选条件 -->
+              <el-button 
+                class="find-button"
+                type="primary"
+                plain
+                @click="applyFilter"
+              >Find
+              </el-button>
+            </div>
           </el-form>
         </el-col>
       </el-row>
@@ -333,7 +338,16 @@ export default {
   margin-bottom: 10px;
 }
 
-.dialog-footer {
-  text-align: right;
+.button-container {
+  width: 100%;
+  overflow: hidden
+}
+
+.button-container .search-button {
+  float: left;
+}
+
+.button-container .find-button {
+  float: right;
 }
 </style>

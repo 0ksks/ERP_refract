@@ -21,9 +21,11 @@
         />
       </div>
     </el-main>
-    <el-footer style="height: 25px;padding-top: 5px"><el-button type="primary" plain @click="save" :disabled="disabled">
-      Confirm
-    </el-button></el-footer>
+    <el-footer style="width:100%;height: 30px;padding-top: 10px;">
+      <el-button type="primary" plain @click="save" :disabled="disabled" style="float:right;">
+        Confirm
+      </el-button>
+    </el-footer>
   </el-container>
 </template>
 

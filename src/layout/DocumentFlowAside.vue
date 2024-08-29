@@ -40,12 +40,14 @@
               </el-input>
             </el-form-item>
             <!-- 按钮，点击时应用筛选条件 -->
-            <el-button 
-              type="primary"
-              plain
-              @click="applyFilter"
-            >Find
-            </el-button>
+            <div class="button-container">
+              <el-button 
+                type="primary"
+                plain
+                @click="applyFilter"
+              >Find
+              </el-button>
+            </div>
           </el-form>
         </el-col>
       </el-row>
@@ -197,5 +199,12 @@ export default {
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+.button-container {
+  overflow: hidden;
+  .el-button {
+    float: right;
+  }
 }
 </style>

@@ -124,7 +124,6 @@ export default {
 .text-title {
   font-size: 15px;
   font-weight: bold;
-  margin-bottom: 10px;
   text-align: left;
 }
 

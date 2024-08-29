@@ -76,10 +76,10 @@
       </el-card>
 
       <!-- 欢迎消息区域 -->
-      <h2>
+      <h2 class="welcome-title">
         Welcome to the SAP MM module!
       </h2>
-      <p>
+      <p class="welcome-content">
         Join us to explore innovative material management solutions with
         millions of businesses globally and embark on a path to success
         together!
@@ -229,6 +229,15 @@ const logOut = () => {
   display: flex;
   flex-direction: column; 
   gap: 10px;
-  /* 纵向排列 */
+}
+
+.welcome-title {
+  color: black;
+}
+
+.welcome-content {
+  margin: 0 auto;
+  width: 300px;
+  font-size: large;
 }
 </style>
