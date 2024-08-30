@@ -48,6 +48,11 @@
         "ignoreWhenEmpty": true,
         "ignores": []
       }
+    ],
+    "vue/multiline-html-element-content-newline": [
+      "error", {
+      "allowEmptyLines": false
+      }
     ]
   }
 }

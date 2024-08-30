@@ -8,61 +8,61 @@ import StockPage from "@/views/StockPage.vue";
 import PurchaseOrderPage from "@/views/PurchaseOrderPage.vue";
 import GoodsReceiptPage from "@/views/GoodsReceiptPage.vue";
 import DocumentFlowPage from "@/views/DocumentFlowPage.vue";
-import { useUserStore } from "@/store"; // 导入你的 Pinia store
+import { useUserStore } from "@/store"; // 导入 Pinia store
 
 const routes = [
   {
-    path: "/",
-    name: "HomePage",
+    path     : "/",
+    name     : "HomePage",
     component: HomePage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/material",
-    name: "MaterialPage",
+    path     : "/material",
+    name     : "MaterialPage",
     component: MaterialPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/user",
-    name: "UserPage",
+    path     : "/user",
+    name     : "UserPage",
     component: UserPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/login",
-    name: "LoginPage",
+    path     : "/login",
+    name     : "LoginPage",
     component: LoginPage
   },
   {
-    path: "/supplier",
-    name: "SupplierPage",
+    path     : "/supplier",
+    name     : "SupplierPage",
     component: SupplierPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/stock",
-    name: "StockPage",
+    path     : "/stock",
+    name     : "StockPage",
     component: StockPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/purchase_order",
-    name: "PurchaseOrderPage",
+    path     : "/purchase_order",
+    name     : "PurchaseOrderPage",
     component: PurchaseOrderPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/goods_receipt",
-    name: "GoodsReceiptPage",
+    path     : "/goods_receipt",
+    name     : "GoodsReceiptPage",
     component: GoodsReceiptPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
   {
-    path: "/document_flow",
-    name: "DocumentFlowPage",
+    path     : "/document_flow",
+    name     : "DocumentFlowPage",
     component: DocumentFlowPage,
-    meta: { requiresAuth: true },
+    meta     : { requiresAuth: true },
   },
 ];
 

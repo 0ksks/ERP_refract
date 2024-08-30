@@ -28,11 +28,11 @@ export default {
   name: "BannerHeader",
   props: {
     headingString: {
-      type: String,
+      type    : String,
       required: true, // 标题字符串，必须传递
     },
     componentRouteMapping: {
-      type: Array,
+      type    : Array,
       required: true, // 组件和路由的映射数组，必须传递
     },
   },
@@ -57,7 +57,7 @@ export default {
 <style lang="css" scoped>
 /* 外层垂直容器样式 */
 .verticalContainer {
-  color: white; /* 设置文本颜色为白色 */
+  color     : white; /* 设置文本颜色为白色 */
   margin-top: 20px; /* 上边距为20px */
 }
 .verticalContainer hr {
@@ -65,17 +65,17 @@ export default {
 }
 /* 内层水平容器样式 */
 .horizontalContainer {
-  display: flex; /* 使用 flex 布局 */
+  display    : flex; /* 使用 flex 布局 */
   align-items: center; /* 垂直居中对齐 */
-  position: relative; /* 相对定位 */
-  gap: 10px; /* 子元素之间的间距为10px */
-  font-size: 1em; /* 字体大小为1em */
-  height: 30px; /* 高度为30px */
+  position   : relative; /* 相对定位 */
+  gap        : 10px; /* 子元素之间的间距为10px */
+  font-size  : 1em; /* 字体大小为1em */
+  height     : 30px; /* 高度为30px */
 }
 /* 水平容器内的 h3 标题样式 */
 .horizontalContainer h3 {
-  position: absolute; /* 绝对定位 */
-  left: 50%; /* 水平居中，左边距为50% */
+  position : absolute; /* 绝对定位 */
+  left     : 50%; /* 水平居中，左边距为50% */
   transform: translateX(-50%); /* 将元素向左移动自身宽度的50%以实现真正居中 */
 }
 /* el-icon 组件的样式 */
@@ -84,7 +84,7 @@ export default {
 }
 /* 当鼠标悬停在 el-icon 上时，颜色变为激活状态颜色 */
 .el-icon:hover {
-  color: var(--background-hover); /* 使用CSS变量定义的激活颜色 */
+  color : var(--background-hover); /* 使用CSS变量定义的激活颜色 */
   cursor: pointer;
 }
 </style>

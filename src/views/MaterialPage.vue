@@ -44,31 +44,31 @@ export default {
   setup() {
     const entity = "material"
     const filters = ref({
-      materialName: false,
-      description: false,
-      baseUnit: false,
-      materialGroup: false,
-      division: false,
-      grossWeight: false,
-      netWeight: false,
-      weightUnit: false,
-      volume: false,
-      volumeUnit: false,
+      materialName       : false,
+      description        : false,
+      baseUnit           : false,
+      materialGroup      : false,
+      division           : false,
+      grossWeight        : false,
+      netWeight          : false,
+      weightUnit         : false,
+      volume             : false,
+      volumeUnit         : false,
       transportationGroup: false,
-      packMaterial: false,
-      availabilityCheck: false,
-      loadingGroup: false,
-      mrpType: false,
-      mrpController: false,
-      lotSize: false,
-      minimumLotSize: false,
+      packMaterial       : false,
+      availabilityCheck  : false,
+      loadingGroup       : false,
+      mrpType            : false,
+      mrpController      : false,
+      lotSize            : false,
+      minimumLotSize     : false,
       plannedDeliveryTime: false,
-      valuationClass: false,
-      movingPrice: false,
-      priceUnit: false,
-      standardPrice: false,
-      userID: true,
-      materialID: true,
+      valuationClass     : false,
+      movingPrice        : false,
+      priceUnit          : false,
+      standardPrice      : false,
+      userID             : true,
+      materialID         : true,
     })
     const tableData = ref([])
 
@@ -140,26 +140,26 @@ export default {
 
 <style scoped>
 .inner-container {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  padding-left: var(--window-margin);
-  padding-right: var(--window-margin);
+  display         : flex;
+  height          : 100vh;
+  width           : 100%;
+  overflow        : hidden;
+  padding-left    : var(--window-margin);
+  padding-right   : var(--window-margin);
 }
 .inner-aside {
   background-color: #f5f4f4;
-  padding: 20px;
-  overflow-y: scroll;
-  height: 100%;
-  flex-grow: 1;
-  border-radius: 10px 0 0 10px;
+  padding         : 20px;
+  overflow-y      : scroll;
+  height          : 100%;
+  flex-grow       : 1;
+  border-radius   : 10px 0 0 10px;
 }
 .inner-content {
   background-color: #fff;
-  overflow-y: scroll;
-  height: 100%;
-  flex-grow: 1;
-  border-radius: 0 10px 10px 0;
+  overflow-y      : scroll;
+  height          : 100%;
+  flex-grow       : 1;
+  border-radius   : 0 10px 10px 0;
 }
 </style>

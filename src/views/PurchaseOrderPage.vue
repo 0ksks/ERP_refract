@@ -45,19 +45,19 @@ export default {
   setup() {
     const entity = "purchaseOrder"
     const filters = ref({
-      supplierID: false,
-      stockID: false,
-      orderDate: false,
-      deliveryDate: false,
-      quantity: false,
-      netPrice: false,
-      currency: false,
-      purchasingGroup: false,
+      supplierID            : false,
+      stockID               : false,
+      orderDate             : false,
+      deliveryDate          : false,
+      quantity              : false,
+      netPrice              : false,
+      currency              : false,
+      purchasingGroup       : false,
       purchasingOrganization: false,
-      plant: false,
-      paymentTerms: false,
-      userID: true,  // Keep this true as per instruction
-      purchaseOrderID: true  // Keep this true as per instruction
+      plant                 : false,
+      paymentTerms          : false,
+      userID                : true,  // Keep this true as per instruction
+      purchaseOrderID       : true  // Keep this true as per instruction
     })
     const tableData = ref([])
 
@@ -121,26 +121,26 @@ export default {
 
 <style scoped>
 .inner-container {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  padding-left: var(--window-margin);
-  padding-right: var(--window-margin);
+  display         : flex;
+  height          : 100vh;
+  width           : 100%;
+  overflow        : hidden;
+  padding-left    : var(--window-margin);
+  padding-right   : var(--window-margin);
 }
 .inner-aside {
   background-color: #f5f4f4;
-  padding: 20px;
-  overflow-y: scroll;
-  height: 100%;
-  flex-grow: 1;
-  border-radius: 10px 0 0 10px;
+  padding         : 20px;
+  overflow-y      : scroll;
+  height          : 100%;
+  flex-grow       : 1;
+  border-radius   : 10px 0 0 10px;
 }
 .inner-content {
   background-color: #fff;
-  overflow-y: scroll;
-  height: 100%;
-  flex-grow: 1;
-  border-radius: 0 10px 10px 0;
+  overflow-y      : scroll;
+  height          : 100%;
+  flex-grow       : 1;
+  border-radius   : 0 10px 10px 0;
 }
 </style>

@@ -30,13 +30,14 @@
                 v-model="localFilters[key]"
                 @dblclick="clearInput(key)"
                 :placeholder="`Enter ${$sentenceCase(key)}...`"
-              ><template #append>
-                <el-button 
-                  class="copy-button"
-                  :icon="CopyDocument"
-                  @click="handleCopyPaste(key)"
-                />
-              </template>
+              >
+                <template #append>
+                  <el-button 
+                    class="copy-button"
+                    :icon="CopyDocument"
+                    @click="handleCopyPaste(key)"
+                  />
+                </template>
               </el-input>
             </el-form-item>
             <!-- 按钮，点击时应用筛选条件 -->
@@ -45,7 +46,8 @@
                 type="primary"
                 plain
                 @click="applyFilter"
-              >Find
+              >
+                Find
               </el-button>
             </div>
           </el-form>

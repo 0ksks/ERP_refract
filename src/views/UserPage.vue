@@ -14,11 +14,11 @@
         <div class="user-info">
           <h2 class="username" id="username-display">
             <input
-              v-model="username"
-              type="text"
-              :disabled="!isEditing"
-              placeholder="Username"
-              class="username-input"
+              v-model     = "username"
+              type        = "text"
+              :disabled   = "!isEditing"
+              placeholder = "Username"
+              class       = "username-input"
             />
           </h2>
           
@@ -41,28 +41,28 @@
           </el-button>
         </div>
         <el-dialog
-          title="Change Password"
-          v-model="changePasswordDialogVisible"
-          width="400px"
+          title   = "Change Password"
+          v-model = "changePasswordDialogVisible"
+          width   = "400px"
           center
           align-center
         >
           <el-input
-            placeholder="Current Password"
-            v-model="currentPassword"
-            :prefix-icon="Lock"
+            placeholder  = "Current Password"
+            v-model      = "currentPassword"
+            :prefix-icon = "Lock"
             show-password
           ></el-input>
           <el-input
-            placeholder="New Password"
-            v-model="newPassword"
-            :prefix-icon="Lock"
+            placeholder  = "New Password"
+            v-model      = "newPassword"
+            :prefix-icon = "Lock"
             show-password
           ></el-input>
           <el-input
-            placeholder="Confirm New Password"
-            v-model="confirmNewPassword"
-            :prefix-icon="Check"
+            placeholder  = "Confirm New Password"
+            v-model      = "confirmNewPassword"
+            :prefix-icon = "Check"
           ></el-input>
           <div class="dialog-footer">
             <div class="button-container">
@@ -189,118 +189,119 @@ const logOut = () => {
 <style scoped>
 /* 样式部分 */
 .user-profile {
-  margin: 20px auto;
-  max-width: 400px;
-  text-align: center;
+  margin          : 20px auto;
+  max-width       : 400px;
+  text-align      : center;
 }
 
 .user-info {
-  margin-top: 15px;
+  margin-top      : 15px;
 }
 
 .username-input {
-  margin: 15px 0;
+  margin          : 15px 0;
 }
 
 .buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  display         : flex;
+  justify-content : space-between;
+  margin-top      : 20px;
 }
 
 .welcome-message {
-  margin: 20px auto;
-  max-width: 600px;
-  text-align: center;
+  margin          : 20px auto;
+  max-width       : 600px;
+  text-align      : center;
 }
 
 .welcome-message h2 {
-  color: #4e91ff;
+  color           : #4e91ff;
 }
 .el-dialog .el-input {
-  margin-bottom: 20px;
+  margin-bottom   : 20px;
 }
 
 .el-dialog .dialog-footer {
   .button-container {
-    width: 100%;
+    width         : 100%;
     .el-button {
-      width: 100%
+      width       : 100%
     }
   }
-
 }
 
 .el-dialog .dialog-footer {
-  display: flex;
-  flex-direction: column; 
-  gap: 10px;
+  display         : flex;
+  flex-direction  : column; 
+  gap             : 10px;
 }
 
 .welcome-message {
-  margin: 20px auto;
-  max-width: 600px;
-  padding: 20px;
+  margin          : 20px auto;
+  max-width       : 600px;
+  padding         : 20px;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius   : 10px;
+  box-shadow      : 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .welcome-message h2 {
-  font-size: 24px;
-  color: #4e91ff;
-  margin-bottom: 10px;
+  font-size       : 24px;
+  color           : #4e91ff;
+  margin-bottom   : 10px;
 }
 
 .welcome-message p {
-  font-size: 18px;
-  color: #555;
+  font-size       : 18px;
+  color           : #555;
 }
 
 .user-profile {
-  background: linear-gradient(to bottom, #8ebdf5, #d2e4fd);
-  padding: 20px;
-  border-radius: 10px;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px auto;
-  max-width: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background      : linear-gradient(to bottom, #8ebdf5, #d2e4fd);
+  padding         : 20px;
+  border-radius   : 10px;
+  border          : none;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  margin          : 20px auto;
+  max-width       : 600px;
+  box-shadow      : 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .username {
-  font-size: 28px;
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
+  font-size       : 28px;
+  margin          : 10px 0;
+  display         : flex;
+  align-items     : center;
 }
 
 .username input {
-  font-size: 28px;
-  margin: 10px 0;
-  border: none;
-  background: transparent;
-  text-align: center;
+  font-size       : 28px;
+  margin          : 10px 0;
+  border          : none;
+  background      : transparent;
+  text-align      : center;
 }
+
 .role {
-  font-size: 20px;
+  font-size       : 20px;
 }
+
 .user-id {
-  font-size: 18px;
-  margin: 5px 0;
-  color: #333;
+  font-size       : 18px;
+  margin          : 5px 0;
+  color           : #333;
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 4px solid #fff;
+  width           : 100px;
+  height          : 100px;
+  border-radius   : 50%;
+  border          : 4px solid #fff;
 }
 
 .user-info {
-  margin: 15px 0;
+  margin          : 15px 0;
 }
 </style>

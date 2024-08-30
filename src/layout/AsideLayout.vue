@@ -17,9 +17,9 @@
           <el-form label-position="left" label-width="auto">
             <!-- 遍历filteredKeys数组，生成表单项 -->
             <el-form-item
-              label-position="left"
-              v-for="key in filteredKeys"
-              :key="key"
+              label-position = "left"
+              v-for          = "key in filteredKeys"
+              :key           = "key"
             >
               <!-- 表单项标签，使用$sentenceCase转换为句子形式 -->
               <template #label>
@@ -27,34 +27,37 @@
               </template>
               <!-- 输入框，绑定到localFilters对象的相应字段 -->
               <el-input
-                v-model="localFilters[key]"
-                @dblclick="clearInput(key)"
-                :placeholder="`Enter ${$sentenceCase(key)}...`"
-              ><template #append>
-                <el-button 
-                  class="copy-button"
-                  :icon="CopyDocument"
-                  @click="handleCopyPaste(key)"
-                />
-              </template>
+                v-model      = "localFilters[key]"
+                @dblclick    = "clearInput(key)"
+                :placeholder = "`Enter ${$sentenceCase(key)}...`"
+              >
+                <template #append>
+                  <el-button 
+                    class  = "copy-button"
+                    :icon  = "CopyDocument"
+                    @click = "handleCopyPaste(key)"
+                  />
+                </template>
               </el-input>
             </el-form-item>
             <!-- 按钮，用于选择字段 -->
             <div class="button-container">
               <el-button 
-                class="search-button"
-                type="primary"
+                class  = "search-button"
+                type   = "primary"
                 plain
-                @click="openSelectFieldsDialog"
-              >Select Fields
+                @click = "openSelectFieldsDialog"
+              >
+                Select Fields
               </el-button>
               <!-- 按钮，点击时应用筛选条件 -->
               <el-button 
-                class="find-button"
-                type="primary"
+                class  = "find-button"
+                type   = "primary"
                 plain
-                @click="applyFilter"
-              >Find
+                @click = "applyFilter"
+              >
+                Find
               </el-button>
             </div>
           </el-form>
@@ -67,22 +70,22 @@
       </div>
       <!-- 表格组件，显示筛选结果 -->
       <el-table
-        :data="tableData"
+        :data          = "tableData"
         highlight-current-row
-        @row-click="handleRowClick"
-        @cell-dblclick="handleCellClick"
+        @row-click     = "handleRowClick"
+        @cell-dblclick = "handleCellClick"
       >
         <!-- 定义表格列，动态显示实体ID -->
         <el-table-column
-          :prop="`${entity}ID`"
-          :label="`${$sentenceCase(entity)} ID`"
+          :prop  = "`${entity}ID`"
+          :label = "`${$sentenceCase(entity)} ID`"
         ></el-table-column>
         <!-- 定义表格列，动态显示实体名称 -->
         <el-table-column
-          v-for="(column, index) in resolvedOptionColumn"
-          :key="index"
-          :prop="`${column[0]}`"
-          :label="`${column[1]}`"
+          v-for  = "(column, index) in resolvedOptionColumn"
+          :key   = "index"
+          :prop  = "`${column[0]}`"
+          :label = "`${column[1]}`"
         ></el-table-column>
         <!-- 固定显示用户ID列 -->
         <el-table-column prop="userID" label="User ID"></el-table-column>
@@ -97,11 +100,12 @@
       style="border-radius: 10px;"
     >
       <el-form>
-        <el-row :gutter="20"> <!-- 添加 gutter 来增加列之间的间距 -->
+        <el-row :gutter="20">
+          <!-- 添加 gutter 来增加列之间的间距 -->
           <el-col :span="6">
             <el-form-item
-              v-for="key in splitFilters[0]"
-              :key="key"
+              v-for = "key in splitFilters[0]"
+              :key  = "key"
             >
               <el-checkbox v-model="localFiltersSelection[key]">
                 {{ $sentenceCase(key) }}
@@ -111,8 +115,8 @@
 
           <el-col :span="6">
             <el-form-item
-              v-for="key in splitFilters[1]"
-              :key="key"
+              v-for = "key in splitFilters[1]"
+              :key  = "key"
             >
               <el-checkbox v-model="localFiltersSelection[key]">
                 {{ $sentenceCase(key) }}
@@ -166,19 +170,19 @@ import { ElMessage } from "element-plus";
 export default {
   props: {
     entity: {
-      type: String,
+      type    : String,
       required: true,
     },
     filters: {
-      type: Object,
+      type    : Object,
       required: true,
     },
     tableData: {
-      type: Array,
+      type    : Array,
       required: true,
     },
     optionColumns: {
-      type: Array,
+      type   : Array,
       default: null,
     },
   },
@@ -317,8 +321,8 @@ export default {
 
 <style scoped>
 .find-text {
-  color: #498be6;
-  font-weight: bold;
+  color        : #498be6;
+  font-weight  : bold;
   margin-bottom: 10px;
 }
 
@@ -327,19 +331,19 @@ export default {
 }
 
 .filter-header {
-  font-size: 15px;
-  font-weight: bold;
+  font-size    : 15px;
+  font-weight  : bold;
   margin-bottom: 10px;
 }
 
 .result-text {
-  font-size: 15px;
-  font-weight: bold;
+  font-size    : 15px;
+  font-weight  : bold;
   margin-bottom: 10px;
 }
 
 .button-container {
-  width: 100%;
+  width   : 100%;
   overflow: hidden
 }
 

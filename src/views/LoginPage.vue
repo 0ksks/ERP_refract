@@ -8,14 +8,14 @@
           </span>
         </div>
         <el-input
-          placeholder="User ID"
-          v-model="userID"
-          :prefix-icon="User"
+          placeholder  = "User ID"
+          v-model      = "userID"
+          :prefix-icon ="User"
         ></el-input>
         <el-input
-          placeholder="Password"
-          v-model="password"
-          :prefix-icon="Lock"
+          placeholder  = "Password"
+          v-model      = "password"
+          :prefix-icon ="Lock"
           show-password
         ></el-input>
         <div class="buttons">
@@ -26,9 +26,9 @@
           </div>
           <div class="button-container">
             <el-button
-              type="text"
-              class="frameless-button"
-              @click="showRegisterDialog"
+              type   = "text"
+              class  = "frameless-button"
+              @click = "showRegisterDialog"
             >
               Register
             </el-button>
@@ -38,27 +38,27 @@
 
         <!-- Registration Dialog -->
         <el-dialog
-          title="Register"
-          v-model="registerDialogVisible"
-          width="400px"
+          title   = "Register"
+          v-model = "registerDialogVisible"
+          width   = "400px"
           center
           align-center
         >
           <el-input
-            placeholder="Username"
-            v-model="registerUsername"
-            :prefix-icon="User"
+            placeholder  = "Username"
+            v-model      = "registerUsername"
+            :prefix-icon = "User"
           ></el-input>
           <el-input
-            placeholder="Password"
-            v-model="registerPassword"
-            :prefix-icon="Lock"
+            placeholder  = "Password"
+            v-model      = "registerPassword"
+            :prefix-icon = "Lock"
             show-password
           ></el-input>
           <el-input
-            placeholder="Confirm Password"
-            v-model="registerConfirmPassword"
-            :prefix-icon="Check"
+            placeholder  = "Confirm Password"
+            v-model      = "registerConfirmPassword"
+            :prefix-icon = "Check"
             show-password
           ></el-input>
           <div class="dialog-footer">
@@ -74,7 +74,6 @@
             </div>
           </div>
         </el-dialog>
-
       </el-card>
     </el-main>
   </el-container>
@@ -88,16 +87,16 @@ import {Check, Lock, User} from "@element-plus/icons-vue"
 
 import apiClient from "@/axios.js";
 
-const store = useUserStore();
+const store  = useUserStore();
 const router = useRouter();
 
-const userID = ref("");
+const userID   = ref("");
 const password = ref("");
 
 const registerDialogVisible = ref(false);
 
-const registerUsername = ref("");
-const registerPassword = ref("");
+const registerUsername        = ref("");
+const registerPassword        = ref("");
 const registerConfirmPassword = ref("");
 
 // 获取当前实例
@@ -143,7 +142,7 @@ const register = () => {
   const registerData = {
     username: registerUsername.value,
     password: registerPassword.value,
-    role: "guest"
+    role    : "guest"
   };
 
   apiClient
@@ -152,10 +151,10 @@ const register = () => {
       const res = response.data;
       if (res.code === 201) {
         proxy.$message({
-          message: `Registration successful! Your UserID is ${res.data.userID}`,
-          type: "success",
+          message  : `Registration successful! Your UserID is ${res.data.userID}`,
+          type     : "success",
           showClose: true,
-          duration: 0
+          duration : 0
         });
         registerDialogVisible.value = false;
       } else {
@@ -163,8 +162,8 @@ const register = () => {
       }
     })
     .catch((error) => {
-      console.error("注册时发生错误:", error);
-      proxy.$message.error("注册时发生错误。");
+      console.error("error during register:", error);
+      proxy.$message.error("error during register");
     });
 };
 </script>
@@ -172,28 +171,28 @@ const register = () => {
 
 <style scoped>
 .main-container {
-  display: flex;
+  display        : flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
-  background: url("@/assets/index_bg.jpg") no-repeat center center fixed;
+  align-items    : center;
+  height         : 100%;
+  background     : url("@/assets/index_bg.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
 .login-card {
-  width: 400px;
-  padding: 20px;
+  width          : 400px;
+  padding        : 20px;
 }
 
 .card-header {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 30px;
+  text-align     : center;
+  font-size      : 20px;
+  font-weight    : bold;
+  margin-bottom  : 30px;
 }
 
 .el-input {
-  margin-bottom: 20px;
+  margin-bottom  : 20px;
 }
 
 .button-container {
@@ -204,20 +203,20 @@ const register = () => {
 }
 
 .el-dialog .dialog-footer {
-  display: flex;
-  flex-direction: column; 
-  gap: 10px;
+  display        : flex;
+  flex-direction : column; 
+  gap            : 10px;
   /* 纵向排列 */
 }
 .el-button {
-  width: 100%;
-  margin-bottom: 10px;
+  width          : 100%;
+  margin-bottom  : 10px;
 }
 
 
 .buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
 }
 </style>
